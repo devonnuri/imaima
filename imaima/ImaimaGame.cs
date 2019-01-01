@@ -4,24 +4,37 @@ using osuTK;
 using osuTK.Graphics;
 using osu.Framework.Graphics.Shapes;
 using osu.Framework.Allocation;
+using imaima.Screens.Menu;
+using osu.Framework.IO.Stores;
+using osu.Framework.Graphics.Textures;
 
 namespace imaima {
-    class ImaimaGame: Game {
-        private Box box;
+    class ImaimaGame : Game {
+        private DependencyContainer dependencies;
+
+        protected override IReadOnlyDependencyContainer CreateChildDependencies(IReadOnlyDependencyContainer parent) =>
+            dependencies = new DependencyContainer(base.CreateChildDependencies(parent));
 
         [BackgroundDependencyLoader]
         private void load() {
-            Add(box = new Box {
-                Anchor = Anchor.Centre,
-                Origin = Anchor.Centre,
-                Size = new Vector2(150, 150),
-                Colour = Color4.Tomato
-            });
-        }
+            Window.Size = new System.Drawing.Size(540, 960);
+            Window.Title = @"imaima v0.1";
 
-        protected override void Update() {
-            base.Update();
-            box.Rotation += (float) Time.Elapsed / 10;
+            Resources.AddStore(new DllResourceStore(@"imaimaResources.dll"));
+
+            LargeTextureStore largeStore = new LargeTextureStore(new TextureLoaderStore(new NamespacedResourceStore<byte[]>(Resources, @"Textures")));
+            largeStore.AddStore(new TextureLoaderStore(new OnlineStore()));
+            dependencies.Cache(largeStore);
+
+            dependencies.CacheAs(this);
+            dependencies.Cache(Fonts = new FontStore(new GlyphStore(Resources, @"Fonts/Ubuntu-Regular")));
+            Fonts.AddStore(new FontStore(new GlyphStore(Resources, @"Fonts/Ubuntu-Italic")));
+            Fonts.AddStore(new FontStore(new GlyphStore(Resources, @"Fonts/Ubuntu-Bold")));
+            Fonts.AddStore(new FontStore(new GlyphStore(Resources, @"Fonts/Ubuntu-BoldItalic")));
+            Fonts.AddStore(new FontStore(new GlyphStore(Resources, @"Fonts/Ubuntu-Light")));
+            Fonts.AddStore(new FontStore(new GlyphStore(Resources, @"Fonts/Ubuntu-LightItalic")));
+
+            Add(new MenuScreen());
         }
     }
 }

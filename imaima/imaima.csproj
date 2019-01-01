@@ -9,4 +9,12 @@
     <PackageReference Include="ppy.osu.Framework" Version="2018.1226.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\imaimaResources\imaimaResources.csproj" />
+  </ItemGroup>
+
 </Project>
