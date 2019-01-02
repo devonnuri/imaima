@@ -7,14 +7,14 @@ namespace imaima.Screens.Menu {
         private Background background;
 
         public MenuScreen() {
-            background = new Background(@"Backgrounds/finale.png");
+            // background = new Background(@"Backgrounds/finale.png");
 
-            Add(background);
+            // Add(background);
         }
 
         [BackgroundDependencyLoader(true)]
         private void load() {
-            LoadComponentAsync(background);
+            // LoadComponentAsync(background);
         }
     }
 }
