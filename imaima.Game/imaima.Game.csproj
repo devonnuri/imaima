@@ -2,6 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+    <ApplicationIcon />
+    <OutputType>Library</OutputType>
+    <StartupObject />
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ppy.osu.Framework" Version="2018.1226.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\imaima.Resources\imaima.Resources.csproj" />
+  </ItemGroup>
 
 </Project>

@@ -1,9 +1,14 @@
-﻿using System;
+﻿using imaima.Game;
+using osu.Framework;
+using osu.Framework.Platform;
 
 namespace imaima.Desktop {
     class Program {
         static void Main(string[] args) {
-            Console.WriteLine("Hello World!");
+            using (osu.Framework.Game game = new ImaimaGame())
+            using (GameHost host = Host.GetSuitableHost(@"imaima")) {
+                host.Run(game);
+            }
         }
     }
 }
