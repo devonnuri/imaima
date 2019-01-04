@@ -7,10 +7,12 @@ using osu.Framework.Graphics.Textures;
 using osu.Framework.Screens;
 using osuTK;
 using osuTK.Graphics;
+using System;
 
 namespace imaima.Game.Screens.Menu {
     class MenuScreen : Screen {
-        private Box box;
+        private Box upperBox;
+        private Box lowerBox;
         private TrackBass track;
         private LargeTextureStore textureStore;
 
@@ -21,21 +23,35 @@ namespace imaima.Game.Screens.Menu {
             track = new TrackBass(game.Resources.GetStream(@"Samples/title-screen.mp3"));
             audio.Track.AddItem(track);
 
-            Add(box = new Box {
-                Anchor = Anchor.Centre,
-                Origin = Anchor.Centre,
-                RelativeSizeAxes = Axes.Both,
+            game.Window.Resize += window_Resize;
+
+            Add(upperBox = new Box {
+                Anchor = Anchor.TopCentre,
+                Origin = Anchor.TopCentre,
+                RelativeSizeAxes = Axes.X,
+                Height = 200,
                 Colour = Color4.White
+            });
+
+            Add(lowerBox = new Box {
+                Anchor = Anchor.BottomCentre,
+                Origin = Anchor.BottomCentre,
+                RelativeSizeAxes = Axes.X,
+                Height = game.Window.Width,
+                Colour = Color4.Cyan
             });
         }
 
         protected override void LoadComplete() {
             base.LoadComplete();
 
-            if (box != null)
-                box.Texture = textureStore.Get(@"Backgrounds/finale.png");
-
             track.Start();
+        }
+
+        private void window_Resize(object sender, EventArgs args) {
+            var window = sender as GameWindow;
+
+            lowerBox.Height = window.Width;
         }
     }
 }
