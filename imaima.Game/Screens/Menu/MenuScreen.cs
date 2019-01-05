@@ -3,11 +3,9 @@ using osu.Framework.Audio;
 using osu.Framework.Audio.Track;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Shapes;
+using osu.Framework.Graphics.Sprites;
 using osu.Framework.Graphics.Textures;
-using osu.Framework.Screens;
-using osuTK;
 using osuTK.Graphics;
-using System;
 
 namespace imaima.Game.Screens.Menu {
     class MenuScreen : SplitScreen {
@@ -17,22 +15,21 @@ namespace imaima.Game.Screens.Menu {
         [BackgroundDependencyLoader]
         private void load(ImaimaGame game, AudioManager audio, LargeTextureStore textureStore) {
             this.textureStore = textureStore;
-            
+
             track = new TrackBass(game.Resources.GetStream(@"Samples/title-screen.mp3"));
             audio.Track.AddItem(track);
 
-            upperContainer.Add(new Box {
-                Anchor = Anchor.Centre,
-                Origin = Anchor.Centre,
-                RelativeSizeAxes = Axes.Both,
-                Colour = Color4.Blue
+            upperContainer.Add(new SpriteText {
+                Text = "Hello World",
+                TextSize = 100,
+                Font = "Ubuntu-Regular",
             });
 
             lowerContainer.Add(new Box {
                 Anchor = Anchor.Centre,
                 Origin = Anchor.Centre,
                 RelativeSizeAxes = Axes.Both,
-                Colour = Color4.Red
+                Colour = new Color4(111, 198, 225, 255)
             });
         }
 

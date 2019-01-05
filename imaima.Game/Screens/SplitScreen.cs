@@ -8,7 +8,7 @@ using System;
 namespace imaima.Game.Screens {
     class SplitScreen : Screen {
         protected Container upperContainer;
-        protected Container lowerContainer;
+        protected CircularContainer lowerContainer;
 
         [BackgroundDependencyLoader]
         private void load(ImaimaGame game) {
@@ -21,11 +21,13 @@ namespace imaima.Game.Screens {
                 Height = 200
             };
 
-            lowerContainer = new Container {
+            lowerContainer = new CircularContainer {
                 Anchor = Anchor.BottomCentre,
                 Origin = Anchor.BottomCentre,
                 RelativeSizeAxes = Axes.X,
-                Height = game.Window.Width
+                Height = game.Window.Width,
+                Masking = true,
+                CornerRadius = Height
             };
 
             AddRange(new Drawable[] {
