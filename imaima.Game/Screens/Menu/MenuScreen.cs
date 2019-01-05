@@ -10,35 +10,29 @@ using osuTK.Graphics;
 using System;
 
 namespace imaima.Game.Screens.Menu {
-    class MenuScreen : Screen {
-        private Box upperBox;
-        private Box lowerBox;
+    class MenuScreen : SplitScreen {
         private TrackBass track;
         private LargeTextureStore textureStore;
 
         [BackgroundDependencyLoader]
-        private void load(osu.Framework.Game game, AudioManager audio, LargeTextureStore textureStore) {
+        private void load(ImaimaGame game, AudioManager audio, LargeTextureStore textureStore) {
             this.textureStore = textureStore;
             
             track = new TrackBass(game.Resources.GetStream(@"Samples/title-screen.mp3"));
             audio.Track.AddItem(track);
 
-            game.Window.Resize += window_Resize;
-
-            Add(upperBox = new Box {
-                Anchor = Anchor.TopCentre,
-                Origin = Anchor.TopCentre,
-                RelativeSizeAxes = Axes.X,
-                Height = 200,
-                Colour = Color4.White
+            upperContainer.Add(new Box {
+                Anchor = Anchor.Centre,
+                Origin = Anchor.Centre,
+                RelativeSizeAxes = Axes.Both,
+                Colour = Color4.Blue
             });
 
-            Add(lowerBox = new Box {
-                Anchor = Anchor.BottomCentre,
-                Origin = Anchor.BottomCentre,
-                RelativeSizeAxes = Axes.X,
-                Height = game.Window.Width,
-                Colour = Color4.Cyan
+            lowerContainer.Add(new Box {
+                Anchor = Anchor.Centre,
+                Origin = Anchor.Centre,
+                RelativeSizeAxes = Axes.Both,
+                Colour = Color4.Red
             });
         }
 
@@ -46,12 +40,6 @@ namespace imaima.Game.Screens.Menu {
             base.LoadComplete();
 
             track.Start();
-        }
-
-        private void window_Resize(object sender, EventArgs args) {
-            var window = sender as GameWindow;
-
-            lowerBox.Height = window.Width;
         }
     }
 }
