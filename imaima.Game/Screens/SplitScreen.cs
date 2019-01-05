@@ -37,9 +37,7 @@ namespace imaima.Game.Screens {
         private void window_Resize(object sender, EventArgs args) {
             var window = sender as GameWindow;
 
-            if (lowerContainer != null && window != null) {
-                lowerContainer.Height = window.Width;
-            }
+            lowerContainer.Height = window.Width;
         }
     }
 }
