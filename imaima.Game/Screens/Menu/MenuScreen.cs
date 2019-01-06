@@ -26,7 +26,13 @@ namespace imaima.Game.Screens.Menu {
                 Colour = new Color4(111, 198, 225, 255)
             });
 
-            lowerContainer.Add(new Box {
+            upperContainer.Add(new SpriteText {
+                Text = "Hello World",
+                TextSize = 200,
+                Font = "Ubuntu-Regular"
+            });
+
+            circularContainer.Add(new Box {
                 Anchor = Anchor.Centre,
                 Origin = Anchor.Centre,
                 RelativeSizeAxes = Axes.Both,
