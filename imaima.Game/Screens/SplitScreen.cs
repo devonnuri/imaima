@@ -40,6 +40,7 @@ namespace imaima.Game.Screens {
             var window = sender as GameWindow;
 
             lowerContainer.Height = window.Width;
+            upperContainer.Height = Math.Min(window.Height - lowerContainer.Height, 200);
         }
     }
 }

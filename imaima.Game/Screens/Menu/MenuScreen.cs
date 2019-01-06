@@ -19,10 +19,11 @@ namespace imaima.Game.Screens.Menu {
             track = new TrackBass(game.Resources.GetStream(@"Samples/title-screen.mp3"));
             audio.Track.AddItem(track);
 
-            upperContainer.Add(new SpriteText {
-                Text = "Hello World",
-                TextSize = 100,
-                Font = "Ubuntu-Regular",
+            upperContainer.Add(new Box {
+                Anchor = Anchor.Centre,
+                Origin = Anchor.Centre,
+                RelativeSizeAxes = Axes.Both,
+                Colour = new Color4(111, 198, 225, 255)
             });
 
             lowerContainer.Add(new Box {
