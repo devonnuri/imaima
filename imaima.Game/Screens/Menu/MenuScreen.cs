@@ -19,6 +19,8 @@ namespace imaima.Game.Screens.Menu {
             track = new TrackBass(game.Resources.GetStream(@"Samples/title-screen.mp3"));
             audio.Track.AddItem(track);
 
+            var logoTexture = textureStore.Get(@"Logo/milkplus");
+
             upperContainer.Add(new Box {
                 Anchor = Anchor.Centre,
                 Origin = Anchor.Centre,
@@ -26,10 +28,12 @@ namespace imaima.Game.Screens.Menu {
                 Colour = new Color4(111, 198, 225, 255)
             });
 
-            upperContainer.Add(new SpriteText {
-                Text = "Hello World",
-                TextSize = 200,
-                Font = "Ubuntu-Regular"
+            upperContainer.Add(new Sprite {
+                Anchor = Anchor.Centre,
+                Origin = Anchor.Centre,
+                Texture = logoTexture,
+                Width = logoTexture.Width / 2,
+                Height = logoTexture.Height / 2
             });
 
             circularContainer.Add(new Box {
@@ -37,6 +41,15 @@ namespace imaima.Game.Screens.Menu {
                 Origin = Anchor.Centre,
                 RelativeSizeAxes = Axes.Both,
                 Colour = new Color4(111, 198, 225, 255)
+            });
+
+
+            circularContainer.Add(new Sprite {
+                Anchor = Anchor.Centre,
+                Origin = Anchor.Centre,
+                Texture = logoTexture,
+                Width = logoTexture.Width,
+                Height = logoTexture.Height
             });
         }
 
