@@ -8,9 +8,7 @@ namespace imaima.Game {
         protected override void LoadComplete() {
             base.LoadComplete();
 
-            AddRange(new Drawable[] {
-                screen = new MenuScreen()
-            });
+            this.Add(screen = new MenuScreen());
         }
     }
 }

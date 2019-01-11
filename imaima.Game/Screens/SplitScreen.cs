@@ -15,31 +15,31 @@ namespace imaima.Game.Screens {
         private void load(ImaimaGame game) {
             game.Window.Resize += window_Resize;
 
-            upperContainer = new Container {
+            this.upperContainer = new Container {
                 Anchor = Anchor.TopCentre,
                 Origin = Anchor.TopCentre,
                 RelativeSizeAxes = Axes.X,
                 Height = 200
             };
 
-            lowerContainer = new Container {
+            this.lowerContainer = new Container {
                 Anchor = Anchor.BottomCentre,
                 Origin = Anchor.BottomCentre,
                 RelativeSizeAxes = Axes.X,
                 Height = game.Window.Width
             };
 
-            circularContainer = new CircularContainer {
+            this.circularContainer = new CircularContainer {
                 Anchor = Anchor.Centre,
                 Origin = Anchor.Centre,
                 RelativeSizeAxes = Axes.Both,
-                Masking = true,
+                // Masking = true,
                 CornerRadius = lowerContainer.Height
             };
 
-            lowerContainer.Add(circularContainer);
+            this.lowerContainer.Add(circularContainer);
 
-            AddRange(new Drawable[] {
+            this.AddRange(new Drawable[] {
                 upperContainer,
                 lowerContainer
             });
@@ -47,20 +47,20 @@ namespace imaima.Game.Screens {
 
         private void window_Resize(object sender, EventArgs args) {
             var window = sender as GameWindow;
-            var availableHeight = window.Height - upperContainer.Height;
+            var availableHeight = window.Height - this.upperContainer.Height;
 
-            lowerContainer.Height = Math.Min(window.Height - upperContainer.Height, window.Width);
+            this.lowerContainer.Height = Math.Min(window.Height - this.upperContainer.Height, window.Width);
             if (availableHeight < window.Width) {
-                lowerContainer.Height = availableHeight;
+                this.lowerContainer.Height = availableHeight;
                 var padding = Math.Abs((availableHeight - window.Width) / 2);
 
-                lowerContainer.Padding = new MarginPadding {
+                this.lowerContainer.Padding = new MarginPadding {
                     Left = padding,
                     Right = padding
                 };
             } else {
-                lowerContainer.Height = window.Width;
-                lowerContainer.Padding = new MarginPadding(0);
+                this.lowerContainer.Height = window.Width;
+                this.lowerContainer.Padding = new MarginPadding(0);
             }
         }
     }
