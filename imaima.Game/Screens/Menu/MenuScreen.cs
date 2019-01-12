@@ -12,6 +12,8 @@ namespace imaima.Game.Screens.Menu {
         private TrackBass track;
         private LargeTextureStore textureStore;
 
+        private Sprite mainLogo;
+
         [BackgroundDependencyLoader]
         private void load(ImaimaGame game, AudioManager audio, LargeTextureStore textureStore) {
             this.textureStore = textureStore;
@@ -32,8 +34,7 @@ namespace imaima.Game.Screens.Menu {
                 Anchor = Anchor.Centre,
                 Origin = Anchor.Centre,
                 Texture = logoTexture,
-                Width = logoTexture.Width / 2,
-                Height = logoTexture.Height / 2
+                Size = logoTexture.Size / 2
             });
 
             this.circularContainer.Add(new Box {
@@ -42,10 +43,15 @@ namespace imaima.Game.Screens.Menu {
                 RelativeSizeAxes = Axes.Both,
                 Colour = new Color4(111, 198, 225, 255)
             });
-            
-            this.circularContainer.Add(new SelectContainer(logoTexture) {
-                RelativeSizeAxes = Axes.Both
+
+            this.circularContainer.Add(mainLogo = new Sprite {
+                Anchor = Anchor.Centre,
+                Origin = Anchor.Centre,
+                Size = logoTexture.Size,
+                Texture = logoTexture,
             });
+
+            this.circularContainer.Add(new MenuButton("Play", new Color4(93, 168, 191, 255), null));
         }
 
         protected override void LoadComplete() {

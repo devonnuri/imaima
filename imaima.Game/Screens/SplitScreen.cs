@@ -33,7 +33,7 @@ namespace imaima.Game.Screens {
                 Anchor = Anchor.Centre,
                 Origin = Anchor.Centre,
                 RelativeSizeAxes = Axes.Both,
-                // Masking = true,
+                Masking = true,
                 CornerRadius = lowerContainer.Height
             };
 
