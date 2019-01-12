@@ -2,6 +2,7 @@
 using osu.Framework.Audio;
 using osu.Framework.Audio.Track;
 using osu.Framework.Graphics;
+using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Graphics.Textures;
@@ -12,7 +13,7 @@ namespace imaima.Game.Screens.Menu {
         private TrackBass track;
         private LargeTextureStore textureStore;
 
-        private Sprite mainLogo;
+        private LogoContainer logoContainer;
 
         [BackgroundDependencyLoader]
         private void load(ImaimaGame game, AudioManager audio, LargeTextureStore textureStore) {
@@ -37,19 +38,15 @@ namespace imaima.Game.Screens.Menu {
                 Size = logoTexture.Size / 2
             });
 
-            this.circularContainer.Add(new Box {
-                Anchor = Anchor.Centre,
-                Origin = Anchor.Centre,
-                RelativeSizeAxes = Axes.Both,
-                Colour = new Color4(111, 198, 225, 255)
-            });
-
-            this.circularContainer.Add(mainLogo = new Sprite {
-                Anchor = Anchor.Centre,
-                Origin = Anchor.Centre,
-                Size = logoTexture.Size,
-                Texture = logoTexture,
-            });
+            this.circularContainer.Children = new Drawable[] {
+                new Box {
+                    Anchor = Anchor.Centre,
+                    Origin = Anchor.Centre,
+                    RelativeSizeAxes = Axes.Both,
+                    Colour = new Color4(111, 198, 225, 255)
+                },
+                this.logoContainer = new LogoContainer(logoTexture)
+            };
 
             this.circularContainer.Add(new MenuButton("Play", new Color4(93, 168, 191, 255), null));
         }

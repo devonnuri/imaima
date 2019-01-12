@@ -4,6 +4,7 @@ using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Graphics.Textures;
+using osu.Framework.Input.Events;
 using osuTK;
 using osuTK.Graphics;
 using System;
@@ -27,7 +28,8 @@ namespace imaima.Game.Screens.Menu {
                     },
                     Anchor = Anchor.Centre,
                     Origin = Anchor.Centre,
-                    Size = new Vector2(120, 30),
+                    Scale = new Vector2(0, 1),
+                    Size = new Vector2(360, 90),
                     Children = new[] {
                         new Box {
                             EdgeSmoothness = new Vector2(1.5f, 0),
@@ -61,6 +63,10 @@ namespace imaima.Game.Screens.Menu {
                     }
                 }
             };
+        }
+
+        public void stretch() {
+            this.box.ScaleTo(new Vector2(1.5f, 1), 500, Easing.OutElastic);
         }
     }
 }
