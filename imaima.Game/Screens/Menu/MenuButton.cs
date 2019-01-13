@@ -29,7 +29,7 @@ namespace imaima.Game.Screens.Menu {
                     Anchor = Anchor.Centre,
                     Origin = Anchor.Centre,
                     Scale = new Vector2(0, 1),
-                    Size = new Vector2(360, 90),
+                    Size = new Vector2(300, 70),
                     Children = new[] {
                         new Box {
                             EdgeSmoothness = new Vector2(1.5f, 0),
@@ -50,23 +50,31 @@ namespace imaima.Game.Screens.Menu {
                     Position = new Vector2(0, 0),
                     Anchor = Anchor.Centre,
                     Origin = Anchor.Centre,
+                    Alpha = 0,
                     Children = new Drawable[] {
                         new SpriteText {
                             Shadow = true,
                             AllowMultiline = false,
                             Anchor = Anchor.Centre,
                             Origin = Anchor.Centre,
-                            TextSize = 16,
-                            Position = new Vector2(0, 35),
-                            Text = text
+                            TextSize = 75,
+                            Position = new Vector2(0, 0),
+                            Text = text,
                         }
                     }
                 }
             };
         }
 
-        public void stretch() {
-            this.box.ScaleTo(new Vector2(1.5f, 1), 500, Easing.OutElastic);
+        public void changeState(bool state) {
+            if (state) {
+                this.box.ScaleTo(new Vector2(1f, 1), 300, Easing.OutElastic);
+                this.iconText.FadeTo(1, 100);
+            } else {
+                this.box.ScaleTo(new Vector2(0, 1), 300, Easing.OutExpo);
+                this.iconText.FadeTo(0, 100);
+            }
+            
         }
     }
 }

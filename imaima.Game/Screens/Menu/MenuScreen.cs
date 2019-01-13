@@ -45,10 +45,12 @@ namespace imaima.Game.Screens.Menu {
                     RelativeSizeAxes = Axes.Both,
                     Colour = new Color4(111, 198, 225, 255)
                 },
-                this.logoContainer = new LogoContainer(logoTexture)
+                new MenuMainContainer(logoTexture) {
+                    Anchor = Anchor.Centre,
+                    Origin = Anchor.Centre,
+                    RelativeSizeAxes = Axes.Both,
+                }
             };
-
-            this.circularContainer.Add(new MenuButton("Play", new Color4(93, 168, 191, 255), null));
         }
 
         protected override void LoadComplete() {
