@@ -15,6 +15,9 @@ namespace imaima.Game.Screens.Menu {
         private Box boxHoverLayer;
         private Container iconText;
 
+        private const float BUTTON_WIDTH = 300;
+        private const float BUTTON_HEIGHT = 50;
+
         public MenuButton(string text, Color4 color, Action clickAction) {
             this.Children = new Drawable[] {
                 this.box = new Container {
@@ -29,7 +32,7 @@ namespace imaima.Game.Screens.Menu {
                     Anchor = Anchor.Centre,
                     Origin = Anchor.Centre,
                     Scale = new Vector2(0, 1),
-                    Size = new Vector2(300, 70),
+                    Size = new Vector2(BUTTON_WIDTH, BUTTON_HEIGHT),
                     Children = new[] {
                         new Box {
                             EdgeSmoothness = new Vector2(1.5f, 0),
@@ -47,19 +50,18 @@ namespace imaima.Game.Screens.Menu {
                 },
                 iconText = new Container {
                     AutoSizeAxes = Axes.Both,
-                    Position = new Vector2(0, 0),
-                    Anchor = Anchor.Centre,
-                    Origin = Anchor.Centre,
+                    Anchor = Anchor.TopCentre,
+                    Origin = Anchor.TopCentre,
                     Alpha = 0,
                     Children = new Drawable[] {
                         new SpriteText {
                             Shadow = true,
                             AllowMultiline = false,
-                            Anchor = Anchor.Centre,
-                            Origin = Anchor.Centre,
-                            TextSize = 75,
-                            Position = new Vector2(0, 0),
+                            Anchor = Anchor.TopCentre,
+                            Origin = Anchor.TopCentre,
+                            Position = new Vector2(0, BUTTON_HEIGHT / 2),
                             Text = text,
+                            TextSize = 75
                         }
                     }
                 }
@@ -68,13 +70,14 @@ namespace imaima.Game.Screens.Menu {
 
         public void changeState(bool state) {
             if (state) {
+                this.box.MoveToY(0, 200, Easing.OutExpo);
                 this.box.ScaleTo(new Vector2(1f, 1), 300, Easing.OutElastic);
                 this.iconText.FadeTo(1, 100);
             } else {
+                this.box.MoveToY(200, 200, Easing.OutExpo);
                 this.box.ScaleTo(new Vector2(0, 1), 300, Easing.OutExpo);
                 this.iconText.FadeTo(0, 100);
             }
-            
         }
     }
 }
