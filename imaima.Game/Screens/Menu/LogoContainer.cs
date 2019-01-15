@@ -38,7 +38,7 @@ namespace imaima.Game.Screens.Menu {
                 this.MoveToY(0, 200, Easing.OutExpo);
             }
 
-            this.clickAction(this.toggleClick);
+            this.clickAction?.Invoke(this.toggleClick);
             
             return true;
         }

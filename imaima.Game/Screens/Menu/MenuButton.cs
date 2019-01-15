@@ -15,10 +15,12 @@ namespace imaima.Game.Screens.Menu {
         private Box boxHoverLayer;
         private Container iconText;
 
+        public Action clickAction;
+
         private const float BUTTON_WIDTH = 300;
         private const float BUTTON_HEIGHT = 50;
 
-        public MenuButton(string text, Color4 color, Action clickAction) {
+        public MenuButton(string text, Color4 color) {
             this.Children = new Drawable[] {
                 this.box = new Container {
                     Masking = true,
@@ -42,8 +44,7 @@ namespace imaima.Game.Screens.Menu {
                         boxHoverLayer = new Box {
                             EdgeSmoothness = new Vector2(1.5f, 0),
                             RelativeSizeAxes = Axes.Both,
-                            Blending = BlendingMode.Additive,
-                            Colour = Color4.White,
+                            Colour = new Color4(0, 0, 0, 255),
                             Alpha = 0
                         }
                     }
@@ -66,6 +67,22 @@ namespace imaima.Game.Screens.Menu {
                     }
                 }
             };
+        }
+
+        protected override bool OnMouseDown(MouseDownEvent e) {
+            this.boxHoverLayer.FadeTo(0.1f, 500, Easing.OutQuint);
+            return base.OnMouseDown(e);
+        }
+
+        protected override bool OnMouseUp(MouseUpEvent e)
+        {
+            this.boxHoverLayer.FadeTo(0, 500, Easing.OutQuint);
+            return base.OnMouseUp(e);
+        }
+
+        protected override bool OnClick(ClickEvent e) {
+            this.clickAction?.Invoke();
+            return true;
         }
 
         public void changeState(bool state) {

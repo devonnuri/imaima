@@ -1,8 +1,8 @@
-﻿using osu.Framework.Allocation;
+﻿using imaima.Game.Screens.SongSelect;
+using osu.Framework.Allocation;
 using osu.Framework.Audio;
 using osu.Framework.Audio.Track;
 using osu.Framework.Graphics;
-using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Graphics.Textures;
@@ -12,8 +12,6 @@ namespace imaima.Game.Screens.Menu {
     class MenuScreen : SplitScreen {
         private TrackBass track;
         private LargeTextureStore textureStore;
-
-        private LogoContainer logoContainer;
 
         [BackgroundDependencyLoader]
         private void load(ImaimaGame game, AudioManager audio, LargeTextureStore textureStore) {
@@ -45,10 +43,16 @@ namespace imaima.Game.Screens.Menu {
                     RelativeSizeAxes = Axes.Both,
                     Colour = new Color4(111, 198, 225, 255)
                 },
-                new MenuMainContainer(logoTexture) {
+                new MenuMainContainer(this, logoTexture) {
                     Anchor = Anchor.Centre,
                     Origin = Anchor.Centre,
                     RelativeSizeAxes = Axes.Both,
+
+                    OnPlay = delegate {
+                        this.track.Stop();
+
+                        Push(new SongSelectScreen());
+                    }
                 }
             };
         }
@@ -56,7 +60,7 @@ namespace imaima.Game.Screens.Menu {
         protected override void LoadComplete() {
             base.LoadComplete();
 
-            track.Start();
+            this.track.Start();
         }
     }
 }

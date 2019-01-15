@@ -19,7 +19,7 @@ namespace imaima.Game.Screens {
                 Anchor = Anchor.TopCentre,
                 Origin = Anchor.TopCentre,
                 RelativeSizeAxes = Axes.X,
-                Height = 200
+                Height = 250
             };
 
             this.lowerContainer = new Container {
