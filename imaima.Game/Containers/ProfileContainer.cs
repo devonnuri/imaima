@@ -55,7 +55,7 @@ namespace imaima.Game.Containers {
                     Children = new Drawable[] {
                         new Box {
                             RelativeSizeAxes = Axes.Both,
-                            Colour = Color4.Red
+                            Texture = nameplateTexture,
                         },
                         new SpriteText {
                             Text = trophy,
