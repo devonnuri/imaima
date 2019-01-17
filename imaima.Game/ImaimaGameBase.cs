@@ -39,6 +39,8 @@ namespace imaima.Game {
             Fonts.AddStore(new FontStore(new GlyphStore(Resources, @"Fonts/Ubuntu-BoldItalic")));
             Fonts.AddStore(new FontStore(new GlyphStore(Resources, @"Fonts/Ubuntu-Light")));
             Fonts.AddStore(new FontStore(new GlyphStore(Resources, @"Fonts/Ubuntu-LightItalic")));
+
+            Fonts.AddStore(new FontStore(new GlyphStore(Resources, @"Fonts/MPLUS1p-Regular")));
         }
 
         public override void SetHost(GameHost host) {
