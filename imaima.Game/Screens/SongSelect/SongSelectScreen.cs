@@ -1,7 +1,6 @@
 ﻿using imaima.Game.Containers;
 using osu.Framework.Allocation;
 using osu.Framework.Graphics;
-using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Textures;
 using osuTK.Graphics;
@@ -10,7 +9,7 @@ namespace imaima.Game.Screens.SongSelect {
     class SongSelectScreen : SplitScreen {
         [BackgroundDependencyLoader]
         private void load(ImaimaGame game, LargeTextureStore textureStore) {
-            this.upperContainer.Add(new ProfileContainer("devonnuri", "ソルト♥JAVASCRIPT大好き！", textureStore.Get("Icons/umaru.png"), textureStore.Get("Nameplates/blue.png"), textureStore.Get("Frames/gochuumon.png")));
+            this.upperContainer.Add(new ProfileContainer("DEVONNURI", "ソルトとJAVASCRIPT大好き！", textureStore.Get("Icons/umaru.png"), textureStore.Get("Nameplates/norato.png"), textureStore.Get("TrophyBg/purple.png"), textureStore.Get("Frames/gochuumon.png")));
 
             this.circularContainer.Children = new Drawable[] {
                 new Box {
@@ -23,3 +22,4 @@ namespace imaima.Game.Screens.SongSelect {
         }
     }
 }
+    

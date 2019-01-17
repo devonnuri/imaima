@@ -62,7 +62,8 @@ namespace imaima.Game.Screens.Menu {
                             Origin = Anchor.TopCentre,
                             Position = new Vector2(0, BUTTON_HEIGHT / 2),
                             Text = text,
-                            TextSize = 75
+                            TextSize = 75,
+                            Font = "Ubuntu-Medium"
                         }
                     }
                 }

@@ -13,7 +13,7 @@ namespace imaima.Game.Containers {
         private Texture nameplateTexture;
         private Texture frameTexture;
 
-        public ProfileContainer(string name, string trophy, Texture iconTexture, Texture nameplateTexture, Texture frameTexture) {
+        public ProfileContainer(string name, string trophy, Texture iconTexture, Texture nameplateTexture, Texture trophyBgTexture, Texture frameTexture) {
             this.name = name;
             this.trophy = trophy;
             this.nameplateTexture = nameplateTexture;
@@ -27,39 +27,38 @@ namespace imaima.Game.Containers {
                 },
                 new Box {
                     Texture = iconTexture,
-                    Size = iconTexture.Size
+                    Size = iconTexture.Size,
+                    Position = new Vector2(10, 15)
                 },
                 new Container {
-                    EdgeEffect = new EdgeEffectParameters {
-                        Type = EdgeEffectType.None,
-                        Roundness = 5,
-                        Radius = 10
-                    },
-                    Width = 200,
-                    Height = 50,
+                    Size = new Vector2(284, 96),
+                    Position = new Vector2(150, 0),
                     Children = new Drawable[] {
                         new Box {
                             RelativeSizeAxes = Axes.Both,
                             Texture = nameplateTexture
                         },
                         new SpriteText {
+                            Position = new Vector2(20, 35),
                             Text = name,
                             TextSize = 70,
-                            Spacing = new Vector2(10, 0),
+                            Shadow = true,
+                            Spacing = new Vector2(10, 0)
                         }
                     }
                 },
                 new Container {
-                    Width = 300,
-                    Height = 30,
+                    Size = trophyBgTexture.Size,
+                    Position = new Vector2(150, 100),
                     Children = new Drawable[] {
                         new Box {
                             RelativeSizeAxes = Axes.Both,
-                            Texture = nameplateTexture,
+                            Texture = trophyBgTexture,
                         },
                         new SpriteText {
                             Text = trophy,
-                            TextSize = 40
+                            TextSize = 50,
+                            Position = new Vector2(20, 8)
                         }
                     }
                 }
