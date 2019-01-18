@@ -31,7 +31,7 @@ namespace imaima.Game.Containers {
                     Position = new Vector2(10, 15)
                 },
                 new Container {
-                    Size = new Vector2(284, 96),
+                    Size = new Vector2(248.5f, 84),
                     Position = new Vector2(150, 0),
                     Children = new Drawable[] {
                         new Box {
@@ -39,17 +39,17 @@ namespace imaima.Game.Containers {
                             Texture = nameplateTexture
                         },
                         new SpriteText {
-                            Position = new Vector2(20, 35),
+                            Position = new Vector2(17, 35),
                             Text = name,
-                            TextSize = 70,
+                            TextSize = 60, 
                             Shadow = true,
-                            Spacing = new Vector2(10, 0)
+                            Spacing = new Vector2(7, 0)
                         }
                     }
                 },
                 new Container {
-                    Size = trophyBgTexture.Size,
-                    Position = new Vector2(150, 100),
+                    Size = new Vector2(280, 35),
+                    Position = new Vector2(150, 90),
                     Children = new Drawable[] {
                         new Box {
                             RelativeSizeAxes = Axes.Both,
@@ -57,8 +57,8 @@ namespace imaima.Game.Containers {
                         },
                         new SpriteText {
                             Text = trophy,
-                            TextSize = 50,
-                            Position = new Vector2(20, 8)
+                            TextSize = 40,
+                            Position = new Vector2(15, 8)
                         }
                     }
                 }
