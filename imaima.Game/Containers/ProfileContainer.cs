@@ -8,19 +8,10 @@ using osuTK.Graphics;
 
 namespace imaima.Game.Containers {
     class ProfileContainer : Container {
-        private string name;
-        private string trophy;
-        private Texture nameplateTexture;
-        private Texture frameTexture;
-
         public ProfileContainer(string name, string trophy, Texture iconTexture, Texture nameplateTexture, Texture trophyBgTexture, Texture frameTexture) {
-            this.name = name;
-            this.trophy = trophy;
-            this.nameplateTexture = nameplateTexture;
-            this.frameTexture = frameTexture;
-
             this.RelativeSizeAxes = Axes.Both;
-            this.Children = new Drawable[] {
+
+            this.AddRange(new Drawable[] {
                 new Box {
                     RelativeSizeAxes = Axes.Both,
                     Texture = frameTexture
@@ -41,7 +32,7 @@ namespace imaima.Game.Containers {
                         new SpriteText {
                             Position = new Vector2(17, 35),
                             Text = name,
-                            TextSize = 60, 
+                            TextSize = 60,
                             Shadow = true,
                             Spacing = new Vector2(7, 0)
                         }
@@ -62,7 +53,7 @@ namespace imaima.Game.Containers {
                         }
                     }
                 }
-            };
+            });
         }
     }
 }

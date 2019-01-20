@@ -21,7 +21,7 @@ namespace imaima.Game.Screens.Menu {
         private const float BUTTON_HEIGHT = 50;
 
         public MenuButton(string text, Color4 color) {
-            this.Children = new Drawable[] {
+            this.AddRange(new Drawable[] {
                 this.box = new Container {
                     Masking = true,
                     MaskingSmoothness = 2,
@@ -67,7 +67,7 @@ namespace imaima.Game.Screens.Menu {
                         }
                     }
                 }
-            };
+            });
         }
 
         protected override bool OnMouseDown(MouseDownEvent e) {
