@@ -6,16 +6,12 @@ using osu.Framework.Graphics.Sprites;
 using osuTK;
 using osuTK.Graphics;
 
-namespace imaima.Game.Screens.SongSelect {
+namespace imaima.Game.Screens.Select {
     class SongContainer : Container {
-        private const float HEIGHT = 200;
+        public static readonly float SONG_HEIGHT = 150;
 
         public SongContainer(Song song) {
-            this.Anchor = Anchor.Centre;
-            this.Origin = Anchor.Centre;
-
-            this.RelativeSizeAxes = Axes.X;
-            this.Height = HEIGHT;
+            this.Height = SONG_HEIGHT;
 
             this.Padding = new MarginPadding {
                 Left = 50,
@@ -25,16 +21,17 @@ namespace imaima.Game.Screens.SongSelect {
             this.AddRange(new Drawable[] {
                 new Box {
                     RelativeSizeAxes = Axes.Both,
-                    Colour = Color4.Blue
+                    Colour = new Color4(93, 168, 191, 255)
                 },
                 new Box {
-                    Width = Height = HEIGHT,
+                    Width = SONG_HEIGHT,
+                    Height = SONG_HEIGHT,
                     Texture = song.Info.AlbumArt
                 },
                 new SpriteText {
                     Text = song.Info.Title,
-                    TextSize = 60,
-                    Position = new Vector2(HEIGHT + 50, 20)
+                    TextSize = 50,
+                    Position = new Vector2(SONG_HEIGHT + 20, 20)
                 }
             });
         }

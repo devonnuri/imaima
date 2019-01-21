@@ -1,4 +1,4 @@
-﻿using imaima.Game.Screens.SongSelect;
+﻿using imaima.Game.Screens.Select;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Textures;
@@ -13,13 +13,9 @@ namespace imaima.Game.Screens.Menu {
         private MenuButton editButton;
         private MenuButton settingButton;
 
-        private Action onPlay;
-        private Action onEdit;
-        private Action onSetting;
-
         public Action OnPlay {
             get {
-                return this.onPlay;
+                return this.playButton.clickAction;
             }
             set {
                 this.playButton.clickAction = value;
@@ -27,7 +23,7 @@ namespace imaima.Game.Screens.Menu {
         }
         private Action OnEdit {
             get {
-                return this.onEdit;
+                return this.editButton.clickAction;
             }
             set {
                 this.editButton.clickAction = value;
@@ -35,7 +31,7 @@ namespace imaima.Game.Screens.Menu {
         }
         private Action OnSetting {
             get {
-                return this.onSetting;
+                return this.settingButton.clickAction;
             }
             set {
                 this.settingButton.clickAction = value;

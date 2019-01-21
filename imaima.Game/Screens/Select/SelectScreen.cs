@@ -9,8 +9,8 @@ using osuTK.Graphics;
 using System.Collections;
 using System.IO;
 
-namespace imaima.Game.Screens.SongSelect {
-    class SongSelectScreen : SplitScreen {
+namespace imaima.Game.Screens.Select {
+    class SelectScreen : SplitScreen {
         private ArrayList songList;
 
         [BackgroundDependencyLoader]
@@ -44,9 +44,9 @@ namespace imaima.Game.Screens.SongSelect {
                 songList.Add(song);
             }
 
-            foreach (Song song in songList) {
-                circularContainer.Add(new SongContainer(song));
-            }
+            circularContainer.Add(new SelectCarousel(songList) {
+                RelativeSizeAxes = Axes.Both
+            });
         }
     }
 }

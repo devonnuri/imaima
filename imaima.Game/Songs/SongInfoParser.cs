@@ -20,9 +20,7 @@ namespace imaima.Game.Songs {
                 string line = "";
 
                 while ((line = reader.ReadLine()) != null) {
-
                     string[] splited = line.Split(':', 2);
-                    Console.WriteLine(string.Join(", ", splited));
 
                     if (splited.Length < 2) {
                         continue;
@@ -33,11 +31,12 @@ namespace imaima.Game.Songs {
 
                     if (Array.IndexOf(keys, key) != -1) {
                         if (key == "AlbumArt") {
-                            songInfo[key] = Texture.FromStream(File.Open(Path.Combine(parentDirectory, value), FileMode.Open));
+                            songInfo.AlbumArt = Texture.FromStream(File.Open(Path.Combine(parentDirectory, value), FileMode.Open));
+                            Console.WriteLine(Path.Combine(parentDirectory, value));
                         } else if (key == "Audio") {
-                            songInfo[key] = File.Open(Path.Combine(parentDirectory, value), FileMode.Open);
+                            songInfo.Audio = File.Open(Path.Combine(parentDirectory, value), FileMode.Open);
                         } else if (key == "Tags") {
-                            songInfo[key] = value.Split(',');
+                            songInfo.Tags = value.Split(',');
                         } else {
                             songInfo[key] = value;
                         }

@@ -1,4 +1,4 @@
-﻿using imaima.Game.Screens.SongSelect;
+﻿using imaima.Game.Screens.Select;
 using osu.Framework.Allocation;
 using osu.Framework.Audio;
 using osu.Framework.Audio.Track;
@@ -51,7 +51,7 @@ namespace imaima.Game.Screens.Menu {
                     OnPlay = delegate {
                         this.track.Stop();
 
-                        Push(new SongSelectScreen());
+                        Push(new SelectScreen());
                     }
                 }
             };
