@@ -11,6 +11,9 @@ namespace imaima.Game.Screens.SongSelect {
         private const float HEIGHT = 200;
 
         public SongContainer(Song song) {
+            this.Anchor = Anchor.Centre;
+            this.Origin = Anchor.Centre;
+
             this.RelativeSizeAxes = Axes.X;
             this.Height = HEIGHT;
 
@@ -26,10 +29,10 @@ namespace imaima.Game.Screens.SongSelect {
                 },
                 new Box {
                     Width = Height = HEIGHT,
-                    Texture = song.albumArt
+                    Texture = song.Info.AlbumArt
                 },
                 new SpriteText {
-                    Text = song.title,
+                    Text = song.Info.Title,
                     TextSize = 60,
                     Position = new Vector2(HEIGHT + 50, 20)
                 }
