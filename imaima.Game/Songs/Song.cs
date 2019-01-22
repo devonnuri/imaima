@@ -1,7 +1,5 @@
-﻿using osu.Framework.Graphics.Textures;
-
-namespace imaima.Game.Songs {
-    class Song {
+﻿namespace imaima.Game.Songs {
+    internal class Song {
         public SongInfo Info { get; set; }
     }
 }

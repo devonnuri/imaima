@@ -1,11 +1,10 @@
 ﻿using osu.Framework.Graphics.Textures;
-using osu.Framework.Platform;
 using System;
 using System.IO;
 using System.Linq;
 
 namespace imaima.Game.Songs {
-    class SongInfoParser {
+    internal static class SongInfoParser {
         public static SongInfo parse(string filepath) {
             SongInfo songInfo = new SongInfo();
 
@@ -17,30 +16,35 @@ namespace imaima.Game.Songs {
             string parentDirectory = Directory.GetParent(filepath).FullName;
 
             using (StreamReader reader = File.OpenText(filepath)) {
-                string line = "";
+                string line;
 
                 while ((line = reader.ReadLine()) != null) {
-                    string[] splited = line.Split(':', 2);
+                    var splited = line.Split(':', 2);
 
                     if (splited.Length < 2) {
                         continue;
                     }
 
-                    string key = splited[0].Trim();
-                    string value = splited[1].Trim();
+                    var key = splited[0].Trim();
+                    var value = splited[1].Trim();
 
-                    if (Array.IndexOf(keys, key) != -1) {
-                        if (key == "AlbumArt") {
+                    if (Array.IndexOf(keys, key) == -1) continue;
+                    switch (key) {
+                        case "AlbumArt":
                             songInfo.AlbumArt = Texture.FromStream(File.Open(Path.Combine(parentDirectory, value), FileMode.Open));
-                        } else if (key == "Audio") {
+                            break;
+                        case "Audio":
                             songInfo.Audio = Path.Combine(parentDirectory, value);
-                        } else if (key == "AudioPreviewTime") {
+                            break;
+                        case "AudioPreviewTime":
                             songInfo.AudioPreviewTime = Convert.ToDouble(value);
-                        } else if (key == "Tags") {
+                            break;
+                        case "Tags":
                             songInfo.Tags = value.Split(',');
-                        } else {
+                            break;
+                        default:
                             songInfo[key] = value;
-                        }
+                            break;
                     }
                 }
             }

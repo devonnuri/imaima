@@ -12,16 +12,25 @@ using System.Collections.Generic;
 using System.IO;
 
 namespace imaima.Game.Screens.Select {
-    class SelectScreen : SplitScreen {
+    internal class SelectScreen : SplitScreen {
         private List<Song> songList;
 
         private TrackBass currentTrack;
 
         [BackgroundDependencyLoader]
         private void load(ImaimaGame game, AudioManager audio, LargeTextureStore textureStore, DesktopStorage storage) {
-            this.upperContainer.Add(new ProfileContainer("DEVONNURI", "ソルトとJAVASCRIPT大好き！", textureStore.Get("Icons/umaru.png"), textureStore.Get("Nameplates/norato.png"), textureStore.Get("TrophyBg/purple.png"), textureStore.Get("Frames/gochuumon.png")));
+            upperContainer.Add(
+                new ProfileContainer(
+                    "DEVONNURI",
+                    "ソルトとJAVASCRIPT大好き！",
+                    textureStore.Get("Icons/umaru.png"),
+                    textureStore.Get("Nameplates/norato.png"),
+                    textureStore.Get("TrophyBg/purple.png"),
+                    textureStore.Get("Frames/gochuumon.png")
+                )
+            );
 
-            this.circularContainer.Add(new Box {
+            circularContainer.Add(new Box {
                 Anchor = Anchor.Centre,
                 Origin = Anchor.Centre,
                 RelativeSizeAxes = Axes.Both,
@@ -35,8 +44,8 @@ namespace imaima.Game.Screens.Select {
             songList = new List<Song>();
 
             foreach (var directory in storage.GetDirectories("./Songs")) {
-                Storage folder = storage.GetStorageForDirectory(directory);
-                Song song = new Song();
+                var folder = storage.GetStorageForDirectory(directory);
+                var song = new Song();
 
                 if (!folder.Exists("./songinfo"))
                     continue;

@@ -4,14 +4,13 @@ using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Graphics.Textures;
 using osuTK;
-using osuTK.Graphics;
 
 namespace imaima.Game.Containers {
-    class ProfileContainer : Container {
+    internal class ProfileContainer : Container {
         public ProfileContainer(string name, string trophy, Texture iconTexture, Texture nameplateTexture, Texture trophyBgTexture, Texture frameTexture) {
-            this.RelativeSizeAxes = Axes.Both;
+            RelativeSizeAxes = Axes.Both;
 
-            this.AddRange(new Drawable[] {
+            AddRange(new Drawable[] {
                 new Box {
                     RelativeSizeAxes = Axes.Both,
                     Texture = frameTexture
@@ -44,7 +43,7 @@ namespace imaima.Game.Containers {
                     Children = new Drawable[] {
                         new Box {
                             RelativeSizeAxes = Axes.Both,
-                            Texture = trophyBgTexture,
+                            Texture = trophyBgTexture
                         },
                         new SpriteText {
                             Text = trophy,

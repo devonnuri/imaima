@@ -1,5 +1,4 @@
 ﻿using imaima.Game.Screens.Menu;
-using osu.Framework.Graphics;
 
 namespace imaima.Game {
     public class ImaimaGame : ImaimaGameBase {
@@ -8,7 +7,7 @@ namespace imaima.Game {
         protected override void LoadComplete() {
             base.LoadComplete();
 
-            this.Add(screen = new MenuScreen());
+            Add(screen = new MenuScreen());
         }
     }
 }

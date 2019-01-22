@@ -1,5 +1,4 @@
 ﻿using imaima.Game.Songs;
-using osu.Framework.Extensions.Color4Extensions;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Shapes;
@@ -10,13 +9,11 @@ using osuTK.Graphics;
 using System;
 
 namespace imaima.Game.Screens.Select {
-    class SongContainer : Container {
+    internal class SongContainer : Container {
         public static readonly float HEIGHT = 150;
 
         public bool Activated {
-            set {
-                this.boxHoverLayer.FadeTo(value ? 0.2f : 0, 300, Easing.OutQuint);
-            }
+            set => boxHoverLayer.FadeTo(value ? 0.2f : 0, 300, Easing.OutQuint);
         }
 
         private Action clickAction;
@@ -25,14 +22,14 @@ namespace imaima.Game.Screens.Select {
         public SongContainer(Song song, Action clickAction) {
             this.clickAction = clickAction;
 
-            this.Height = HEIGHT;
+            Height = HEIGHT;
 
-            this.Padding = new MarginPadding {
+            Padding = new MarginPadding {
                 Left = 50,
                 Right = 50
             };
 
-            this.AddRange(new Drawable[] {
+            AddRange(new Drawable[] {
                 new Box {
                     RelativeSizeAxes = Axes.Both,
                     Colour = new Color4(102, 183, 208, 255)
@@ -56,7 +53,7 @@ namespace imaima.Game.Screens.Select {
         }
 
         protected override bool OnClick(ClickEvent e) {
-            this.clickAction.Invoke();
+            clickAction.Invoke();
             return base.OnClick(e);
         }
     }

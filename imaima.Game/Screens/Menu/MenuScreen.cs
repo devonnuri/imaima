@@ -9,7 +9,7 @@ using osu.Framework.Graphics.Textures;
 using osuTK.Graphics;
 
 namespace imaima.Game.Screens.Menu {
-    class MenuScreen : SplitScreen {
+    internal class MenuScreen : SplitScreen {
         private TrackBass track;
         private LargeTextureStore textureStore;
 
@@ -17,39 +17,39 @@ namespace imaima.Game.Screens.Menu {
         private void load(ImaimaGame game, AudioManager audio, LargeTextureStore textureStore) {
             this.textureStore = textureStore;
 
-            this.track = new TrackBass(game.Resources.GetStream(@"Samples/title-screen.mp3"));
+            track = new TrackBass(game.Resources.GetStream(@"Samples/title-screen.mp3"));
             audio.Track.AddItem(track);
 
             var logoTexture = textureStore.Get(@"Logo/milkplus");
 
-            this.upperContainer.Add(new Box {
+            upperContainer.Add(new Box {
                 Anchor = Anchor.Centre,
                 Origin = Anchor.Centre,
                 RelativeSizeAxes = Axes.Both,
                 Colour = new Color4(111, 198, 225, 255)
             });
 
-            this.upperContainer.Add(new Sprite {
+            upperContainer.Add(new Sprite {
                 Anchor = Anchor.Centre,
                 Origin = Anchor.Centre,
                 Texture = logoTexture,
                 Size = logoTexture.Size / 2
             });
 
-            this.circularContainer.Children = new Drawable[] {
+            circularContainer.Children = new Drawable[] {
                 new Box {
                     Anchor = Anchor.Centre,
                     Origin = Anchor.Centre,
                     RelativeSizeAxes = Axes.Both,
                     Colour = new Color4(111, 198, 225, 255)
                 },
-                new MenuMainContainer(this, logoTexture) {
+                new MenuMainContainer(logoTexture) {
                     Anchor = Anchor.Centre,
                     Origin = Anchor.Centre,
                     RelativeSizeAxes = Axes.Both,
 
                     OnPlay = delegate {
-                        this.track.Stop();
+                        track.Stop();
 
                         Push(new SelectScreen());
                     }
@@ -60,7 +60,7 @@ namespace imaima.Game.Screens.Menu {
         protected override void LoadComplete() {
             base.LoadComplete();
 
-            this.track.Start();
+            track.Start();
         }
     }
 }

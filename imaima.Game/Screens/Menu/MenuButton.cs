@@ -3,30 +3,29 @@ using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Sprites;
-using osu.Framework.Graphics.Textures;
 using osu.Framework.Input.Events;
 using osuTK;
 using osuTK.Graphics;
 using System;
 
 namespace imaima.Game.Screens.Menu {
-    class MenuButton : Container {
-        private Container box;
-        private Box boxHoverLayer;
-        private Container iconText;
+    internal class MenuButton : Container {
+        private readonly Container box;
+        private readonly Box boxHoverLayer;
+        private readonly Container iconText;
 
         public Action clickAction;
 
         public bool Visible {
             set {
                 if (value) {
-                    this.box.MoveToY(0, 200, Easing.OutExpo);
-                    this.box.ScaleTo(new Vector2(1f, 1), 300, Easing.OutElastic);
-                    this.iconText.FadeTo(1, 100);
+                    box.MoveToY(0, 200, Easing.OutExpo);
+                    box.ScaleTo(new Vector2(1f, 1), 300, Easing.OutElastic);
+                    iconText.FadeTo(1, 100);
                 } else {
-                    this.box.MoveToY(200, 200, Easing.OutExpo);
-                    this.box.ScaleTo(new Vector2(0, 1), 300, Easing.OutExpo);
-                    this.iconText.FadeTo(0, 100);
+                    box.MoveToY(200, 200, Easing.OutExpo);
+                    box.ScaleTo(new Vector2(0, 1), 300, Easing.OutExpo);
+                    iconText.FadeTo(0, 100);
                 }
             }
         }
@@ -35,8 +34,8 @@ namespace imaima.Game.Screens.Menu {
         private const float BUTTON_HEIGHT = 50;
 
         public MenuButton(string text, Color4 color) {
-            this.AddRange(new Drawable[] {
-                this.box = new Container {
+            AddRange(new Drawable[] {
+                box = new Container {
                     Masking = true,
                     MaskingSmoothness = 2,
                     EdgeEffect = new EdgeEffectParameters {
@@ -63,7 +62,7 @@ namespace imaima.Game.Screens.Menu {
                         }
                     }
                 },
-                this.iconText = new Container {
+                iconText = new Container {
                     AutoSizeAxes = Axes.Both,
                     Anchor = Anchor.TopCentre,
                     Origin = Anchor.TopCentre,
@@ -85,17 +84,17 @@ namespace imaima.Game.Screens.Menu {
         }
 
         protected override bool OnMouseDown(MouseDownEvent e) {
-            this.boxHoverLayer.FadeTo(0.1f, 500, Easing.OutQuint);
+            boxHoverLayer.FadeTo(0.1f, 500, Easing.OutQuint);
             return base.OnMouseDown(e);
         }
 
         protected override bool OnMouseUp(MouseUpEvent e) {
-            this.boxHoverLayer.FadeTo(0, 500, Easing.OutQuint);
+            boxHoverLayer.FadeTo(0, 500, Easing.OutQuint);
             return base.OnMouseUp(e);
         }
 
         protected override bool OnClick(ClickEvent e) {
-            this.clickAction?.Invoke();
+            clickAction?.Invoke();
             return true;
         }
     }

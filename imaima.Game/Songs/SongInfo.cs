@@ -1,13 +1,9 @@
 ﻿using osu.Framework.Graphics.Textures;
-using System;
-using System.IO;
 
 namespace imaima.Game.Songs {
-    class SongInfo {
+    internal class SongInfo {
         public object this[string propertyName] {
-            set {
-                typeof(SongInfo).GetProperty(propertyName).SetValue(this, value, null);
-            }
+            set => typeof(SongInfo).GetProperty(propertyName).SetValue(this, value, null);
         }
 
         public string Title { get; set; }

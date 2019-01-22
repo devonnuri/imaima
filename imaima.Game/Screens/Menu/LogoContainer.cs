@@ -3,13 +3,11 @@ using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Textures;
 using osu.Framework.Input.Events;
-using osuTK;
 using System;
 
 namespace imaima.Game.Screens.Menu {
-    class LogoContainer : Container {
-        private Box logo;
-        private bool toggleClick = false;
+    internal class LogoContainer : Container {
+        private bool toggleClick;
         private Action<bool> clickAction;
 
         public LogoContainer(Texture logoTexture, Action<bool> clickAction) {
@@ -20,17 +18,17 @@ namespace imaima.Game.Screens.Menu {
             AutoSizeAxes = Axes.Both;
 
             Children = new Drawable[] {
-                this.logo = new Box {
+                new Box {
                     Size = logoTexture.Size,
-                    Texture = logoTexture,
+                    Texture = logoTexture
                 }
             };
         }
 
         protected override bool OnClick(ClickEvent e) {
-            this.toggleClick = !this.toggleClick;
+            toggleClick = !toggleClick;
 
-            if (this.toggleClick) {
+            if (toggleClick) {
                 this.ScaleTo(0.8f, 400, Easing.OutElastic);
                 this.MoveToY(-150, 200, Easing.OutExpo);
             } else {
@@ -38,7 +36,7 @@ namespace imaima.Game.Screens.Menu {
                 this.MoveToY(0, 200, Easing.OutExpo);
             }
 
-            this.clickAction?.Invoke(this.toggleClick);
+            clickAction?.Invoke(toggleClick);
             
             return true;
         }
