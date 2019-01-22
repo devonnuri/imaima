@@ -1,6 +1,8 @@
 ﻿using imaima.Game.Containers;
 using imaima.Game.Songs;
 using osu.Framework.Allocation;
+using osu.Framework.Audio;
+using osu.Framework.Audio.Track;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Textures;
@@ -13,8 +15,10 @@ namespace imaima.Game.Screens.Select {
     class SelectScreen : SplitScreen {
         private List<Song> songList;
 
+        private TrackBass currentTrack;
+
         [BackgroundDependencyLoader]
-        private void load(ImaimaGame game, LargeTextureStore textureStore, DesktopStorage storage) {
+        private void load(ImaimaGame game, AudioManager audio, LargeTextureStore textureStore, DesktopStorage storage) {
             this.upperContainer.Add(new ProfileContainer("DEVONNURI", "ソルトとJAVASCRIPT大好き！", textureStore.Get("Icons/umaru.png"), textureStore.Get("Nameplates/norato.png"), textureStore.Get("TrophyBg/purple.png"), textureStore.Get("Frames/gochuumon.png")));
 
             this.circularContainer.Add(new Box {
@@ -42,7 +46,14 @@ namespace imaima.Game.Screens.Select {
                 songList.Add(song);
             }
 
-            circularContainer.Add(new SelectCarousel(songList) {
+            circularContainer.Add(new SelectCarousel(songList, async delegate (Song song) {
+                currentTrack?.Dispose();
+                Stream stream = File.Open(song.Info.Audio, FileMode.Open);
+                currentTrack = new TrackBass(stream);
+                audio.Track.AddItem(currentTrack);
+                await currentTrack.StartAsync();
+                await currentTrack.SeekAsync(song.Info.AudioPreviewTime);
+            }) {
                 RelativeSizeAxes = Axes.Both
             });
         }

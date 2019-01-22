@@ -1,4 +1,5 @@
 ﻿using imaima.Game.Songs;
+using osu.Framework.Extensions.Color4Extensions;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Shapes;
@@ -14,12 +15,12 @@ namespace imaima.Game.Screens.Select {
 
         public bool Activated {
             set {
-                this.box.Colour = value ? new Color4(93, 168, 191, 255) : new Color4(102, 183, 208, 255);
+                this.boxHoverLayer.FadeTo(value ? 0.2f : 0, 300, Easing.OutQuint);
             }
         }
 
         private Action clickAction;
-        private Box box;
+        private Box boxHoverLayer;
 
         public SongContainer(Song song, Action clickAction) {
             this.clickAction = clickAction;
@@ -32,9 +33,14 @@ namespace imaima.Game.Screens.Select {
             };
 
             this.AddRange(new Drawable[] {
-                box = new Box {
+                new Box {
                     RelativeSizeAxes = Axes.Both,
                     Colour = new Color4(102, 183, 208, 255)
+                },
+                boxHoverLayer = new Box {
+                    RelativeSizeAxes = Axes.Both,
+                    Colour = Color4.Black,
+                    Alpha = 0
                 },
                 new Box {
                     Width = HEIGHT,
@@ -50,7 +56,7 @@ namespace imaima.Game.Screens.Select {
         }
 
         protected override bool OnClick(ClickEvent e) {
-            this.clickAction();
+            this.clickAction.Invoke();
             return base.OnClick(e);
         }
     }

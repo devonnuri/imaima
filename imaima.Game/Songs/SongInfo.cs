@@ -15,7 +15,8 @@ namespace imaima.Game.Songs {
         public string Artist { get; set; }
         public string AlphabetArtist { get; set; }
         public Texture AlbumArt { get; set; }
-        public Stream Audio { get; set; }
+        public string Audio { get; set; }
+        public double AudioPreviewTime { get; set; }
         public string NoteDesigner { get; set; }
         public string[] Tags { get; set; }
     }

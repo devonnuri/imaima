@@ -32,9 +32,10 @@ namespace imaima.Game.Songs {
                     if (Array.IndexOf(keys, key) != -1) {
                         if (key == "AlbumArt") {
                             songInfo.AlbumArt = Texture.FromStream(File.Open(Path.Combine(parentDirectory, value), FileMode.Open));
-                            Console.WriteLine(Path.Combine(parentDirectory, value));
                         } else if (key == "Audio") {
-                            songInfo.Audio = File.Open(Path.Combine(parentDirectory, value), FileMode.Open);
+                            songInfo.Audio = Path.Combine(parentDirectory, value);
+                        } else if (key == "AudioPreviewTime") {
+                            songInfo.AudioPreviewTime = Convert.ToDouble(value);
                         } else if (key == "Tags") {
                             songInfo.Tags = value.Split(',');
                         } else {

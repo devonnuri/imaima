@@ -58,7 +58,7 @@ namespace imaima.Game.Screens.Menu {
                         boxHoverLayer = new Box {
                             EdgeSmoothness = new Vector2(1.5f, 0),
                             RelativeSizeAxes = Axes.Both,
-                            Colour = new Color4(0, 0, 0, 255),
+                            Colour = Color4.Black,
                             Alpha = 0
                         }
                     }
