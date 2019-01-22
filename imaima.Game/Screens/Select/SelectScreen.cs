@@ -6,31 +6,29 @@ using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Textures;
 using osu.Framework.Platform;
 using osuTK.Graphics;
-using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 
 namespace imaima.Game.Screens.Select {
     class SelectScreen : SplitScreen {
-        private ArrayList songList;
+        private List<Song> songList;
 
         [BackgroundDependencyLoader]
         private void load(ImaimaGame game, LargeTextureStore textureStore, DesktopStorage storage) {
             this.upperContainer.Add(new ProfileContainer("DEVONNURI", "ソルトとJAVASCRIPT大好き！", textureStore.Get("Icons/umaru.png"), textureStore.Get("Nameplates/norato.png"), textureStore.Get("TrophyBg/purple.png"), textureStore.Get("Frames/gochuumon.png")));
 
-            this.circularContainer.Children = new Drawable[] {
-                new Box {
-                    Anchor = Anchor.Centre,
-                    Origin = Anchor.Centre,
-                    RelativeSizeAxes = Axes.Both,
-                    Colour = new Color4(111, 198, 225, 255)
-                }
-            };
+            this.circularContainer.Add(new Box {
+                Anchor = Anchor.Centre,
+                Origin = Anchor.Centre,
+                RelativeSizeAxes = Axes.Both,
+                Colour = new Color4(111, 198, 225, 255)
+            });
 
             if (!storage.ExistsDirectory("./Songs")) {
                 Directory.CreateDirectory(storage.GetFullPath("./Songs"));
             }
 
-            songList = new ArrayList();
+            songList = new List<Song>();
 
             foreach (var directory in storage.GetDirectories("./Songs")) {
                 Storage folder = storage.GetStorageForDirectory(directory);

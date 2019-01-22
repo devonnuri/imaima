@@ -17,6 +17,20 @@ namespace imaima.Game.Screens.Menu {
 
         public Action clickAction;
 
+        public bool Visible {
+            set {
+                if (value) {
+                    this.box.MoveToY(0, 200, Easing.OutExpo);
+                    this.box.ScaleTo(new Vector2(1f, 1), 300, Easing.OutElastic);
+                    this.iconText.FadeTo(1, 100);
+                } else {
+                    this.box.MoveToY(200, 200, Easing.OutExpo);
+                    this.box.ScaleTo(new Vector2(0, 1), 300, Easing.OutExpo);
+                    this.iconText.FadeTo(0, 100);
+                }
+            }
+        }
+
         private const float BUTTON_WIDTH = 300;
         private const float BUTTON_HEIGHT = 50;
 
@@ -49,7 +63,7 @@ namespace imaima.Game.Screens.Menu {
                         }
                     }
                 },
-                iconText = new Container {
+                this.iconText = new Container {
                     AutoSizeAxes = Axes.Both,
                     Anchor = Anchor.TopCentre,
                     Origin = Anchor.TopCentre,
@@ -75,8 +89,7 @@ namespace imaima.Game.Screens.Menu {
             return base.OnMouseDown(e);
         }
 
-        protected override bool OnMouseUp(MouseUpEvent e)
-        {
+        protected override bool OnMouseUp(MouseUpEvent e) {
             this.boxHoverLayer.FadeTo(0, 500, Easing.OutQuint);
             return base.OnMouseUp(e);
         }
@@ -84,18 +97,6 @@ namespace imaima.Game.Screens.Menu {
         protected override bool OnClick(ClickEvent e) {
             this.clickAction?.Invoke();
             return true;
-        }
-
-        public void changeState(bool state) {
-            if (state) {
-                this.box.MoveToY(0, 200, Easing.OutExpo);
-                this.box.ScaleTo(new Vector2(1f, 1), 300, Easing.OutElastic);
-                this.iconText.FadeTo(1, 100);
-            } else {
-                this.box.MoveToY(200, 200, Easing.OutExpo);
-                this.box.ScaleTo(new Vector2(0, 1), 300, Easing.OutExpo);
-                this.iconText.FadeTo(0, 100);
-            }
         }
     }
 }

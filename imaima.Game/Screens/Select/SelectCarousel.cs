@@ -1,26 +1,31 @@
 ﻿using imaima.Game.Songs;
-using osu.Framework.Allocation;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
-using System.Collections;
+using osu.Framework.MathUtils;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace imaima.Game.Screens.Select {
     class SelectCarousel : ScrollContainer {
-        private ArrayList songList;
+        private SongContainer[] containers;
+        private int selectedIndex;
 
-        public SelectCarousel(ArrayList songList) {
-            this.songList = songList;
-        }
-
-        [BackgroundDependencyLoader]
-        private void load() {
-            float height = 0;
-            foreach (Song song in songList) {
-                Add(new SongContainer(song) {
+        public SelectCarousel(IEnumerable<Song> songList) {
+            this.containers = songList
+                .Select((song, index) => new SongContainer(song, delegate {
+                    this.selectedIndex = index;
+                    for (int i = 0; i < this.containers.Length; i++) {
+                        this.containers[i].Activated = index == i;
+                    }
+                }) {
                     RelativeSizeAxes = Axes.X,
-                    Y = (height += SongContainer.SONG_HEIGHT + 20)
-                });
-            }
+                    Y = (SongContainer.HEIGHT + 20) * (index + 1)
+                })
+                .ToArray();
+
+            AddRange(this.containers);
+
+            selectedIndex = RNG.Next(0, this.containers.Length);
         }
     }
 }

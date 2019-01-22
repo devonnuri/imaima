@@ -14,25 +14,16 @@ namespace imaima.Game.Screens.Menu {
         private MenuButton settingButton;
 
         public Action OnPlay {
-            get {
-                return this.playButton.clickAction;
-            }
             set {
                 this.playButton.clickAction = value;
             }
         }
         private Action OnEdit {
-            get {
-                return this.editButton.clickAction;
-            }
             set {
                 this.editButton.clickAction = value;
             }
         }
         private Action OnSetting {
-            get {
-                return this.settingButton.clickAction;
-            }
             set {
                 this.settingButton.clickAction = value;
             }
@@ -41,9 +32,7 @@ namespace imaima.Game.Screens.Menu {
         public MenuMainContainer(Screen screen, Texture logoTexture) {
             this.Children = new Drawable[] {
                 this.logo = new LogoContainer(logoTexture, delegate (bool toggleClick) {
-                    this.playButton.changeState(toggleClick);
-                    this.editButton.changeState(toggleClick);
-                    this.settingButton.changeState(toggleClick);
+                    this.playButton.Visible = this.editButton.Visible = this.settingButton.Visible = toggleClick;
                 }),
                 this.playButton = new MenuButton("Play", new Color4(93, 168, 191, 255)) {
                     Anchor = Anchor.Centre,
