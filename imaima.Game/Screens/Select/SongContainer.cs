@@ -10,32 +10,34 @@ using System;
 
 namespace imaima.Game.Screens.Select {
     internal class SongContainer : Container {
-        public static readonly float HEIGHT = 150;
+        private SelectState state = SelectState.NotSelected;
+        private Action clickAction;
+        private Box boxHoverLayer;
+        private Container detailContainer;
+
+        public static readonly float HEIGHT = 100;
 
         public SelectState State {
-            get {
-                return state;
-            }
+            get => state;
             set {
                 state = value;
                 
                 switch (value) {
                     case SelectState.NotSelected:
                         boxHoverLayer.FadeTo(0, 300, Easing.OutQuint);
+                        detailContainer.ScaleTo(new Vector2(1, 0), 500, Easing.OutQuint);
                         break;
                     case SelectState.Selected:
                         boxHoverLayer.FadeTo(0.2f, 300, Easing.OutQuint);
+                        detailContainer.ScaleTo(new Vector2(1, 0), 500, Easing.OutQuint);
                         break;
                     case SelectState.DetailShowing:
                         boxHoverLayer.FadeTo(0.4f, 300, Easing.OutQuint);
+                        detailContainer.ScaleTo(new Vector2(1, 1), 500, Easing.OutQuint);
                         break;
                 }
             }
         }
-
-        private SelectState state = SelectState.NotSelected;
-        private Action clickAction;
-        private Box boxHoverLayer;
 
         public SongContainer(Song song, Action clickAction) {
             this.clickAction = clickAction;
@@ -66,6 +68,23 @@ namespace imaima.Game.Screens.Select {
                     Text = song.Info.Title,
                     TextSize = 50,
                     Position = new Vector2(HEIGHT + 20, 20)
+                },
+                new SpriteText {
+                    Text = song.Info.Artist,
+                    TextSize = 40,
+                    Position = new Vector2(HEIGHT + 20, 50)
+                },
+                detailContainer = new Container {
+                    RelativeSizeAxes = Axes.X,
+                    Height = 100,
+                    Y = HEIGHT,
+                    Scale = new Vector2(1, 0),
+                    Children = new Drawable[] {
+                        new Box {
+                            RelativeSizeAxes = Axes.Both,
+                            Colour = new Color4(93, 168, 191, 255)
+                        }
+                    }
                 }
             });
         }

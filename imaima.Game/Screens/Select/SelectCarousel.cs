@@ -1,4 +1,5 @@
 ﻿using imaima.Game.Songs;
+using osu.Framework.Allocation;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using System;
@@ -18,6 +19,10 @@ namespace imaima.Game.Screens.Select {
             set {
                 if (containers[value].State == SelectState.Selected) {
                     containers[value].State = SelectState.DetailShowing;
+
+                    for (var i = value + 1; i < containers.Length; i++) {
+                        containers[i].MoveToY(containers[i].Y + 100, 400, Easing.OutQuint);
+                    }
                 } else {
                     containers[value].State = SelectState.Selected;
                 }
@@ -37,17 +42,30 @@ namespace imaima.Game.Screens.Select {
         public SelectCarousel(Song[] songList, Action<Song> playPreview) {
             this.songList = songList;
             this.playPreview = playPreview;
+        }
+
+        [BackgroundDependencyLoader]
+        private void load(ImaimaGame game) {
 
             containers = songList
                 .Select((song, index) => new SongContainer(song, delegate {
                     SelectedIndex = index;
                 }) {
                     RelativeSizeAxes = Axes.X,
+                    AutoSizeAxes = Axes.Y,
                     Y = (SongContainer.HEIGHT + 20) * (index + 1)
                 })
                 .ToArray();
-
-            AddRange(containers);
+            
+            Add(new FillFlowContainer {
+                Direction = FillDirection.Vertical,
+                RelativeSizeAxes = Axes.X,
+                AutoSizeAxes = Axes.Y,
+                Children = containers,
+                Margin = new MarginPadding {
+                    Top = game.Window.Width / 2 - SongContainer.HEIGHT
+                }
+            });
         }
     }
 }
