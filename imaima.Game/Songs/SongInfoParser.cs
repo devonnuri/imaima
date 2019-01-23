@@ -1,17 +1,13 @@
 ﻿using osu.Framework.Graphics.Textures;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
 namespace imaima.Game.Songs {
     internal static class SongInfoParser {
-        public static SongInfo parse(string filepath) {
+        public static Song parse(Song song, string filepath) {
             SongInfo songInfo = new SongInfo();
-
-            var keys = typeof(SongInfo)
-                        .GetProperties()
-                        .Select(item => item.Name)
-                        .ToArray();
 
             string parentDirectory = Directory.GetParent(filepath).FullName;
 
@@ -27,8 +23,7 @@ namespace imaima.Game.Songs {
 
                     var key = splited[0].Trim();
                     var value = splited[1].Trim();
-
-                    if (Array.IndexOf(keys, key) == -1) continue;
+                    
                     switch (key) {
                         case "AlbumArt":
                             songInfo.AlbumArt = Texture.FromStream(File.Open(Path.Combine(parentDirectory, value), FileMode.Open));
@@ -42,6 +37,20 @@ namespace imaima.Game.Songs {
                         case "Tags":
                             songInfo.Tags = value.Split(',');
                             break;
+                        case "Difficulty":
+                            Console.WriteLine("asdf");
+                            song.Difficulties = new List<Difficulty>();
+                            var diffStr = value.Split(',');
+                            foreach (var diffParamStr in diffStr) {
+                                var diffParam = diffParamStr.Split(':');
+                                Console.WriteLine(diffParamStr);
+                                song.Difficulties.Add(new Difficulty {
+                                    Level = diffParam[0],
+                                    Name = diffParam[1],
+                                    Filename = diffParam[2]
+                                });
+                            }
+                            break;
                         default:
                             songInfo[key] = value;
                             break;
@@ -49,7 +58,9 @@ namespace imaima.Game.Songs {
                 }
             }
 
-            return songInfo;
+            song.Info = songInfo;
+
+            return song;
         }
     }
 }

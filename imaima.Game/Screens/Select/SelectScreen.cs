@@ -50,9 +50,7 @@ namespace imaima.Game.Screens.Select {
                 if (!folder.Exists("./songinfo"))
                     continue;
 
-                song.Info = SongInfoParser.parse(folder.GetFullPath("./songinfo"));
-
-                songList.Add(song);
+                songList.Add(SongInfoParser.parse(song, folder.GetFullPath("./songinfo")));
             }
 
             circularContainer.Add(new SelectCarousel(songList.ToArray(), async delegate (Song song) {

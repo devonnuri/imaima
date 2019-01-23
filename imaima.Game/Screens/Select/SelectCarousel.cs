@@ -52,8 +52,7 @@ namespace imaima.Game.Screens.Select {
                     SelectedIndex = index;
                 }) {
                     RelativeSizeAxes = Axes.X,
-                    AutoSizeAxes = Axes.Y,
-                    Y = (SongContainer.HEIGHT + 20) * (index + 1)
+                    AutoSizeAxes = Axes.Y
                 })
                 .ToArray();
             

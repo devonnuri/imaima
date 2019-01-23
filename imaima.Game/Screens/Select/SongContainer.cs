@@ -7,6 +7,7 @@ using osu.Framework.Input.Events;
 using osuTK;
 using osuTK.Graphics;
 using System;
+using System.Linq;
 
 namespace imaima.Game.Screens.Select {
     internal class SongContainer : Container {
@@ -59,39 +60,53 @@ namespace imaima.Game.Screens.Select {
                     Colour = Color4.Black,
                     Alpha = 0
                 },
-                new Box {
-                    Width = HEIGHT,
-                    Height = HEIGHT,
-                    Texture = song.Info.AlbumArt
-                },
-                new SpriteText {
-                    Text = song.Info.Title,
-                    TextSize = 50,
-                    Position = new Vector2(HEIGHT + 20, 20)
-                },
-                new SpriteText {
-                    Text = song.Info.Artist,
-                    TextSize = 40,
-                    Position = new Vector2(HEIGHT + 20, 50)
+                new MainSongContainer(song, clickAction) {
+                    RelativeSizeAxes = Axes.X,
+                    Height = HEIGHT
                 },
                 detailContainer = new Container {
                     RelativeSizeAxes = Axes.X,
-                    Height = 100,
+                    AutoSizeAxes = Axes.Y,
                     Y = HEIGHT,
                     Scale = new Vector2(1, 0),
                     Children = new Drawable[] {
                         new Box {
                             RelativeSizeAxes = Axes.Both,
                             Colour = new Color4(93, 168, 191, 255)
+                        },
+                        new FillFlowContainer {
+                            Direction = FillDirection.Vertical,
+                            RelativeSizeAxes = Axes.X,
+                            AutoSizeAxes = Axes.Y,
+                            Children = song.Difficulties
+                                .Select(difficulty => new Container {
+                                    RelativeSizeAxes = Axes.X,
+                                    Height = 40,
+                                    Children = new Drawable[] {
+                                        new Box {
+                                            RelativeSizeAxes = Axes.Y,
+                                            Colour = difficulty.Color,
+                                            Width = 40,
+                                        },
+                                        new SpriteText {
+                                            Origin = Anchor.Centre,
+                                            Position = new Vector2(20, 30),
+                                            Text = difficulty.Level,
+                                            TextSize = 50,
+                                        },
+                                        new SpriteText {
+                                            Origin = Anchor.CentreLeft,
+                                            Position = new Vector2(50, 30),
+                                            Text = difficulty.Name,
+                                            TextSize = 40
+                                        }
+                                    }
+                                })
+                                .ToArray()
                         }
                     }
                 }
             });
-        }
-
-        protected override bool OnClick(ClickEvent e) {
-            clickAction.Invoke();
-            return base.OnClick(e);
         }
     }
 }
