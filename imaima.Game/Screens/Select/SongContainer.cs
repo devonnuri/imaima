@@ -12,10 +12,28 @@ namespace imaima.Game.Screens.Select {
     internal class SongContainer : Container {
         public static readonly float HEIGHT = 150;
 
-        public bool Activated {
-            set => boxHoverLayer.FadeTo(value ? 0.2f : 0, 300, Easing.OutQuint);
+        public SelectState State {
+            get {
+                return state;
+            }
+            set {
+                state = value;
+                
+                switch (value) {
+                    case SelectState.NotSelected:
+                        boxHoverLayer.FadeTo(0, 300, Easing.OutQuint);
+                        break;
+                    case SelectState.Selected:
+                        boxHoverLayer.FadeTo(0.2f, 300, Easing.OutQuint);
+                        break;
+                    case SelectState.DetailShowing:
+                        boxHoverLayer.FadeTo(0.4f, 300, Easing.OutQuint);
+                        break;
+                }
+            }
         }
 
+        private SelectState state = SelectState.NotSelected;
         private Action clickAction;
         private Box boxHoverLayer;
 

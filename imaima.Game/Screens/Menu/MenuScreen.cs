@@ -18,6 +18,7 @@ namespace imaima.Game.Screens.Menu {
             this.textureStore = textureStore;
 
             track = new TrackBass(game.Resources.GetStream(@"Samples/title-screen.mp3"));
+            track.Looping = true;
             audio.Track.AddItem(track);
 
             var logoTexture = textureStore.Get(@"Logo/milkplus");

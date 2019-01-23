@@ -13,9 +13,9 @@ using System.IO;
 
 namespace imaima.Game.Screens.Select {
     internal class SelectScreen : SplitScreen {
-        private List<Song> songList;
 
         private TrackBass currentTrack;
+        private Song currentSong;
 
         [BackgroundDependencyLoader]
         private void load(ImaimaGame game, AudioManager audio, LargeTextureStore textureStore, DesktopStorage storage) {
@@ -41,8 +41,8 @@ namespace imaima.Game.Screens.Select {
                 Directory.CreateDirectory(storage.GetFullPath("./Songs"));
             }
 
-            songList = new List<Song>();
-
+            var songList = new List<Song>();
+            
             foreach (var directory in storage.GetDirectories("./Songs")) {
                 var folder = storage.GetStorageForDirectory(directory);
                 var song = new Song();
@@ -55,10 +55,12 @@ namespace imaima.Game.Screens.Select {
                 songList.Add(song);
             }
 
-            circularContainer.Add(new SelectCarousel(songList, async delegate (Song song) {
+            circularContainer.Add(new SelectCarousel(songList.ToArray(), async delegate (Song song) {
                 currentTrack?.Dispose();
                 Stream stream = File.Open(song.Info.Audio, FileMode.Open);
                 currentTrack = new TrackBass(stream);
+                currentSong = song;
+                currentTrack.Looping = true;
                 audio.Track.AddItem(currentTrack);
                 await currentTrack.StartAsync();
                 await currentTrack.SeekAsync(song.Info.AudioPreviewTime);
