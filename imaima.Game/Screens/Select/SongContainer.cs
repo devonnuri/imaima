@@ -79,28 +79,11 @@ namespace imaima.Game.Screens.Select {
                             RelativeSizeAxes = Axes.X,
                             AutoSizeAxes = Axes.Y,
                             Children = song.Difficulties
-                                .Select(difficulty => new Container {
+                                .Select(difficulty => new DifficultyContainer(difficulty, delegate {
+
+                                }) {
                                     RelativeSizeAxes = Axes.X,
-                                    Height = 40,
-                                    Children = new Drawable[] {
-                                        new Box {
-                                            RelativeSizeAxes = Axes.Y,
-                                            Colour = difficulty.Color,
-                                            Width = 40,
-                                        },
-                                        new SpriteText {
-                                            Origin = Anchor.Centre,
-                                            Position = new Vector2(20, 30),
-                                            Text = difficulty.Level,
-                                            TextSize = 50,
-                                        },
-                                        new SpriteText {
-                                            Origin = Anchor.CentreLeft,
-                                            Position = new Vector2(50, 30),
-                                            Text = difficulty.Name,
-                                            TextSize = 40
-                                        }
-                                    }
+                                    Height = 40
                                 })
                                 .ToArray()
                         }
