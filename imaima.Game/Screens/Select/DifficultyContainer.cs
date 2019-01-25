@@ -5,11 +5,14 @@ using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Input.Events;
 using osuTK;
+using osuTK.Graphics;
 using System;
 
 namespace imaima.Game.Screens.Select {
     class DifficultyContainer : Container {
         private Action clickAction;
+
+        private Box boxHoverLayer;
 
         public DifficultyContainer(Difficulty difficulty, Action clickAction) {
             this.clickAction = clickAction;
@@ -19,6 +22,11 @@ namespace imaima.Game.Screens.Select {
                     RelativeSizeAxes = Axes.Y,
                     Colour = difficulty.Color,
                     Width = 40,
+                },
+                boxHoverLayer = new Box {
+                    RelativeSizeAxes = Axes.Both,
+                    Colour = Color4.Black,
+                    Alpha = 0,
                 },
                 new SpriteText {
                     Origin = Anchor.Centre,
@@ -39,6 +47,18 @@ namespace imaima.Game.Screens.Select {
             clickAction.Invoke();
 
             return base.OnClick(e);
+        }
+
+        protected override bool OnMouseDown(MouseDownEvent e) {
+            boxHoverLayer.FadeTo(0.15f, 100, Easing.InQuad);
+
+            return base.OnMouseDown(e);
+        }
+
+        protected override bool OnMouseUp(MouseUpEvent e) {
+            boxHoverLayer.FadeTo(0, 200, Easing.InQuad);
+
+            return base.OnMouseUp(e);
         }
     }
 }
