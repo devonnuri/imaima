@@ -1,4 +1,5 @@
 ﻿using imaima.Game.Containers;
+using imaima.Game.Screens.Play;
 using imaima.Game.Songs;
 using osu.Framework.Allocation;
 using osu.Framework.Audio;
@@ -62,6 +63,9 @@ namespace imaima.Game.Screens.Select {
                 audio.Track.AddItem(currentTrack);
                 await currentTrack.StartAsync();
                 await currentTrack.SeekAsync(song.Info.AudioPreviewTime);
+            }, delegate (Difficulty difficulty) {
+                currentTrack.Stop();
+                Push(new PlayScreen(difficulty));
             }) {
                 RelativeSizeAxes = Axes.Both
             });

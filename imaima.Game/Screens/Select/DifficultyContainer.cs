@@ -10,11 +10,13 @@ using System;
 
 namespace imaima.Game.Screens.Select {
     class DifficultyContainer : Container {
-        private Action clickAction;
+        private Difficulty difficulty;
+        private Action<Difficulty> clickAction;
 
         private Box boxHoverLayer;
 
-        public DifficultyContainer(Difficulty difficulty, Action clickAction) {
+        public DifficultyContainer(Difficulty difficulty, Action<Difficulty> clickAction) {
+            this.difficulty = difficulty;
             this.clickAction = clickAction;
 
             AddRange(new Drawable[] {
@@ -44,7 +46,7 @@ namespace imaima.Game.Screens.Select {
         }
 
         protected override bool OnClick(ClickEvent e) {
-            clickAction.Invoke();
+            clickAction.Invoke(difficulty);
 
             return base.OnClick(e);
         }

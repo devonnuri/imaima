@@ -12,7 +12,6 @@ using System.Linq;
 namespace imaima.Game.Screens.Select {
     internal class SongContainer : Container {
         private SelectState state = SelectState.NotSelected;
-        private Action clickAction;
         private Box boxHoverLayer;
         private Container detailContainer;
 
@@ -40,8 +39,7 @@ namespace imaima.Game.Screens.Select {
             }
         }
 
-        public SongContainer(Song song, Action clickAction) {
-            this.clickAction = clickAction;
+        public SongContainer(Song song, Action clickAction, Action<Difficulty> selectAction) {
 
             Height = HEIGHT;
 
@@ -79,9 +77,7 @@ namespace imaima.Game.Screens.Select {
                             RelativeSizeAxes = Axes.X,
                             AutoSizeAxes = Axes.Y,
                             Children = song.Difficulties
-                                .Select(difficulty => new DifficultyContainer(difficulty, delegate {
-
-                                }) {
+                                .Select(difficulty => new DifficultyContainer(difficulty, selectAction) {
                                     RelativeSizeAxes = Axes.X,
                                     Height = 40
                                 })

@@ -10,6 +10,7 @@ namespace imaima.Game.Screens.Select {
     internal class SelectCarousel : ScrollContainer {
         private SongContainer[] containers;
         private Action<Song> playPreview;
+        private Action<Difficulty> selectAction;
         private Song[] songList;
 
         private int selectedIndex = -1;
@@ -39,9 +40,10 @@ namespace imaima.Game.Screens.Select {
             }
         }
 
-        public SelectCarousel(Song[] songList, Action<Song> playPreview) {
+        public SelectCarousel(Song[] songList, Action<Song> playPreview, Action<Difficulty> selectAction) {
             this.songList = songList;
             this.playPreview = playPreview;
+            this.selectAction = selectAction;
         }
 
         [BackgroundDependencyLoader]
@@ -50,7 +52,7 @@ namespace imaima.Game.Screens.Select {
             containers = songList
                 .Select((song, index) => new SongContainer(song, delegate {
                     SelectedIndex = index;
-                }) {
+                }, selectAction) {
                     RelativeSizeAxes = Axes.X,
                     AutoSizeAxes = Axes.Y
                 })
