@@ -63,9 +63,9 @@ namespace imaima.Game.Screens.Select {
                 audio.Track.AddItem(currentTrack);
                 await currentTrack.StartAsync();
                 await currentTrack.SeekAsync(song.Info.AudioPreviewTime);
-            }, delegate (Difficulty difficulty) {
+            }, delegate (Song song, Difficulty difficulty) {
                 currentTrack.Stop();
-                Push(new PlayScreen(difficulty));
+                Push(new PlayScreen(song, difficulty));
             }) {
                 RelativeSizeAxes = Axes.Both
             });

@@ -39,8 +39,7 @@ namespace imaima.Game.Screens.Select {
             }
         }
 
-        public SongContainer(Song song, Action clickAction, Action<Difficulty> selectAction) {
-
+        public SongContainer(Song song, Action clickAction, Action<Song, Difficulty> selectAction) {
             Height = HEIGHT;
 
             Padding = new MarginPadding {
@@ -77,7 +76,7 @@ namespace imaima.Game.Screens.Select {
                             RelativeSizeAxes = Axes.X,
                             AutoSizeAxes = Axes.Y,
                             Children = song.Difficulties
-                                .Select(difficulty => new DifficultyContainer(difficulty, selectAction) {
+                                .Select(difficulty => new DifficultyContainer(difficulty, () => selectAction.Invoke(song, difficulty)) {
                                     RelativeSizeAxes = Axes.X,
                                     Height = 40
                                 })

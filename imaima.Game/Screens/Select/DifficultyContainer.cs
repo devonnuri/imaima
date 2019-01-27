@@ -11,11 +11,11 @@ using System;
 namespace imaima.Game.Screens.Select {
     class DifficultyContainer : Container {
         private Difficulty difficulty;
-        private Action<Difficulty> clickAction;
+        private Action clickAction;
 
         private Box boxHoverLayer;
 
-        public DifficultyContainer(Difficulty difficulty, Action<Difficulty> clickAction) {
+        public DifficultyContainer(Difficulty difficulty, Action clickAction) {
             this.difficulty = difficulty;
             this.clickAction = clickAction;
 
@@ -46,7 +46,7 @@ namespace imaima.Game.Screens.Select {
         }
 
         protected override bool OnClick(ClickEvent e) {
-            clickAction.Invoke(difficulty);
+            clickAction.Invoke();
 
             return base.OnClick(e);
         }
