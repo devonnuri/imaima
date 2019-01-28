@@ -1,4 +1,5 @@
-﻿using osu.Framework.Allocation;
+﻿using imaima.Game.Objects;
+using osu.Framework.Allocation;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Shapes;
@@ -8,9 +9,13 @@ using System;
 
 namespace imaima.Game.Screens.Play {
     class NoteLayerContainer : Container {
-        private Box[] testBox;
+        private DecoupleableInterpolatingFramedClock adjustableClock;
+
+        private Note[] testNote;
 
         public NoteLayerContainer(DecoupleableInterpolatingFramedClock adjustableClock) {
+            this.adjustableClock = adjustableClock;
+
             Clock = adjustableClock;
             ProcessCustomClock = false;
         }
@@ -19,26 +24,15 @@ namespace imaima.Game.Screens.Play {
         private void load(LargeTextureStore textureStore) {
             var noteTexture = textureStore.Get("Notes/singlenote.png");
 
-            testBox = new Box[10];
+            testNote = new Note[10];
             for (int i = 0; i < 10; i++) {
-                testBox[i] = new Box {
-                    Origin = Anchor.Centre,
-                    Anchor = Anchor.Centre,
-                    Rotation = -22.5f,
-                    Size = noteTexture.Size / 4,
-                    Texture = noteTexture,
+                testNote[i] = new Note(noteTexture, i % 8) {
+                    Clock = adjustableClock,
+                    ProcessCustomClock = false
                 };
             }
 
-            AddRange(testBox);
-        }
-
-        protected override void Update() {
-            for (int i = 0; i < 10; i++) {
-                testBox[i].X += 1f / (i + 1) * (float) Math.Cos((testBox[i].Rotation + 90) * Math.PI / 180);
-                testBox[i].Y += 1f / (i + 1) * (float) Math.Sin((testBox[i].Rotation + 90) * Math.PI / 180);
-            }
-            base.Update();
+            AddRange(testNote);
         }
     }
 }
