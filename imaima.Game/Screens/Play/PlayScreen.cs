@@ -1,17 +1,22 @@
 ﻿using imaima.Game.Containers;
 using imaima.Game.Songs;
+using osu.Framework;
 using osu.Framework.Allocation;
 using osu.Framework.Audio;
 using osu.Framework.Audio.Track;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Textures;
+using osu.Framework.Timing;
+using osuTK;
 using System.IO;
 
 namespace imaima.Game.Screens.Play {
-    class PlayScreen : SplitScreen {
+    internal class PlayScreen : SplitScreen {
         private readonly Song song;
         private readonly Difficulty difficulty;
+
+        private DecoupleableInterpolatingFramedClock adjustableClock;
 
         public PlayScreen(Song song, Difficulty difficulty) {
             this.song = song;
@@ -24,6 +29,12 @@ namespace imaima.Game.Screens.Play {
             TrackBass track = new TrackBass(stream);
             audio.Track.AddItem(track);
             track.Start();
+
+            adjustableClock = new DecoupleableInterpolatingFramedClock {
+                IsCoupled = false
+            };
+
+            adjustableClock.ProcessFrame();
 
             upperContainer.Add(
                 new ProfileContainer(
@@ -40,6 +51,9 @@ namespace imaima.Game.Screens.Play {
                 new Box {
                     RelativeSizeAxes = Axes.Both,
                     Texture = textureStore.Get("Borders/white.png")
+                },
+                new NoteLayerContainer(adjustableClock) {
+                    RelativeSizeAxes = Axes.Both
                 }
             });
         }

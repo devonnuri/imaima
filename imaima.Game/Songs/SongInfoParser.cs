@@ -38,12 +38,10 @@ namespace imaima.Game.Songs {
                             songInfo.Tags = value.Split(',');
                             break;
                         case "Difficulty":
-                            Console.WriteLine("asdf");
                             song.Difficulties = new List<Difficulty>();
                             var diffStr = value.Split(',');
                             foreach (var diffParamStr in diffStr) {
                                 var diffParam = diffParamStr.Split(':');
-                                Console.WriteLine(diffParamStr);
                                 song.Difficulties.Add(new Difficulty {
                                     Level = diffParam[0],
                                     Name = diffParam[1],
