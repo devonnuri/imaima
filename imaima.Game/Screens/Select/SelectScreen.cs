@@ -46,12 +46,11 @@ namespace imaima.Game.Screens.Select {
             
             foreach (var directory in storage.GetDirectories("./Songs")) {
                 var folder = storage.GetStorageForDirectory(directory);
-                var song = new Song();
 
                 if (!folder.Exists("./songinfo"))
                     continue;
 
-                songList.Add(SongInfoParser.parse(song, folder.GetFullPath("./songinfo")));
+                songList.Add(Song.Parse(folder.GetFullPath("./songinfo")));
             }
 
             circularContainer.Add(new SelectCarousel(songList.ToArray(), async delegate (Song song) {
