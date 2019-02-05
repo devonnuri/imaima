@@ -33,8 +33,7 @@ namespace imaima.Game.Screens.Play {
             adjustableClock = new DecoupleableInterpolatingFramedClock {
                 IsCoupled = false
             };
-
-            adjustableClock.ProcessFrame();
+            adjustableClock.Start();
 
             upperContainer.Add(
                 new ProfileContainer(
@@ -56,6 +55,12 @@ namespace imaima.Game.Screens.Play {
                     RelativeSizeAxes = Axes.Both
                 }
             });
+        }
+
+        protected override void Update() {
+            adjustableClock.ProcessFrame();
+
+            base.Update();
         }
     }
 }

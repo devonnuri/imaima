@@ -24,9 +24,9 @@ namespace imaima.Game.Screens.Play {
         private void load(LargeTextureStore textureStore) {
             var noteTexture = textureStore.Get("Notes/singlenote.png");
 
-            testNote = new Note[10];
-            for (int i = 0; i < 10; i++) {
-                testNote[i] = new Note(noteTexture, i % 8) {
+            testNote = new Note[100];
+            for (int i = 0; i < 100; i++) {
+                testNote[i] = new Note(noteTexture, i * 100, i % 8) {
                     Clock = adjustableClock,
                     ProcessCustomClock = false
                 };
