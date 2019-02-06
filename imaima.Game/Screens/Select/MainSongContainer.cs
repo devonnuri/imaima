@@ -9,8 +9,8 @@ using osuTK.Graphics;
 using System;
 
 namespace imaima.Game.Screens.Select {
-    class MainSongContainer : Container {
-        Action clickAction;
+    internal class MainSongContainer : Container {
+        private Action clickAction;
 
         public MainSongContainer(Song song, Action clickAction) {
             this.clickAction = clickAction;

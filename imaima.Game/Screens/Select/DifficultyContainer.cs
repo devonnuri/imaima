@@ -9,7 +9,7 @@ using osuTK.Graphics;
 using System;
 
 namespace imaima.Game.Screens.Select {
-    class DifficultyContainer : Container {
+    internal class DifficultyContainer : Container {
         private Difficulty difficulty;
         private Action clickAction;
 

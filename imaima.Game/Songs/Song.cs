@@ -9,12 +9,12 @@ namespace imaima.Game.Songs {
         public List<Difficulty> Difficulties { get; set; }
 
         public static Song Parse(string filepath) {
-            Song song = new Song();
-            SongInfo songInfo = new SongInfo();
+            var song = new Song();
+            var songInfo = new SongInfo();
 
-            string parentDirectory = Directory.GetParent(filepath).FullName;
+            var parentDirectory = Directory.GetParent(filepath).FullName;
 
-            using (StreamReader reader = File.OpenText(filepath)) {
+            using (var reader = File.OpenText(filepath)) {
                 string line;
 
                 while ((line = reader.ReadLine()) != null) {

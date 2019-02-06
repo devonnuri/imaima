@@ -26,7 +26,7 @@ namespace imaima.Game.Screens.Play {
         [BackgroundDependencyLoader]
         private void load(AudioManager audio, LargeTextureStore textureStore) {
             Stream stream = File.Open(song.Info.Audio, FileMode.Open);
-            TrackBass track = new TrackBass(stream);
+            var track = new TrackBass(stream);
             audio.Track.AddItem(track);
             track.Start();
 
