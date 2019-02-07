@@ -6,6 +6,14 @@ namespace imaima.Game.Objects.Drawables {
         protected readonly T Note;
         protected Bindable<NoteState> State = new Bindable<NoteState>();
 
+        public bool Interactive = true;
+        public override bool HandleNonPositionalInput => Interactive;
+        public override bool HandlePositionalInput => Interactive;
+
+        public override bool RemoveWhenNotAlive => false;
+        public override bool RemoveCompletedTransforms => false;
+        protected override bool RequiresChildrenUpdate => true;
+
         protected DrawableNote(T note) {
             Note = note;
 

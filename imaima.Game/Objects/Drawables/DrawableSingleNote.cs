@@ -9,6 +9,8 @@ namespace imaima.Game.Objects.Drawables {
         private Box circle;
 
         public DrawableSingleNote(SingleNote note, Texture texture) : base(note) {
+            
+
             Origin = Anchor.Centre;
             Anchor = Anchor.Centre;
 
@@ -16,9 +18,10 @@ namespace imaima.Game.Objects.Drawables {
                 circle = new Box {
                     Anchor = Anchor.Centre,
                     Origin = Anchor.Centre,
-                    Size = new Vector2(100, 100),
+                    Size = new Vector2(75, 75),
                     Rotation = Note.Position * 45f + 90,
                     Alpha = 0,
+                    AlwaysPresent = true,
                     Texture = texture
                 }
             };
@@ -32,6 +35,10 @@ namespace imaima.Game.Objects.Drawables {
 
         protected override void UpdateState(NoteState state) {
             var transformTime = Note.StartTime - Note.IncomingTime;
+            
+
+            base.ApplyTransformsAt(transformTime, true);
+            base.ClearTransformsAfter(transformTime, true);
 
             using (BeginAbsoluteSequence(transformTime, true)) {
                 UpdateIncoming();
@@ -44,23 +51,22 @@ namespace imaima.Game.Objects.Drawables {
 
         private void UpdateIncoming() {
             double angle = Note.Position * 45f + 67.5f;
-
-            Console.WriteLine(Note.Position);
-            circle.FadeIn(Note.IncomingTime / 2);
+            
+            circle.FadeIn(Note.IncomingTime / 4);
             circle.MoveTo(new Vector2((float) Math.Cos(angle) * 200, (float) Math.Sin(angle) * 200), Note.IncomingTime);
         }
 
         private void UpdateCurrentState(NoteState state) {
             switch (state) {
                 case NoteState.Idle:
-                    this.Delay(Note.IncomingTime).FadeOut(500);
+                    circle.Delay(Note.IncomingTime).FadeOut(200);
 
                     Expire(true);
-                    LifetimeEnd = Note.StartTime + 2000;
-                    
+
+                    LifetimeEnd = Note.StartTime + Note.IncomingTime + 200;
                     break;
                 case NoteState.Hit:
-                    this.FadeOut(500);
+                    // this.FadeOut(500);
                     break;
                 case NoteState.None:
                     break;
