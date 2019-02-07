@@ -9,8 +9,6 @@ namespace imaima.Game.Objects.Drawables {
         private Box circle;
 
         public DrawableSingleNote(SingleNote note, Texture texture) : base(note) {
-            
-
             Origin = Anchor.Centre;
             Anchor = Anchor.Centre;
 
@@ -36,7 +34,6 @@ namespace imaima.Game.Objects.Drawables {
         protected override void UpdateState(NoteState state) {
             var transformTime = Note.StartTime - Note.IncomingTime;
             
-
             base.ApplyTransformsAt(transformTime, true);
             base.ClearTransformsAfter(transformTime, true);
 
@@ -50,20 +47,20 @@ namespace imaima.Game.Objects.Drawables {
         }
 
         private void UpdateIncoming() {
-            double angle = Note.Position * 45f + 67.5f;
+            double angle = (Note.Position * 45 + 22.5) * Math.PI / 180;
             
             circle.FadeIn(Note.IncomingTime / 4);
-            circle.MoveTo(new Vector2((float) Math.Cos(angle) * 200, (float) Math.Sin(angle) * 200), Note.IncomingTime);
+            circle.MoveTo(new Vector2((float) Math.Cos(angle) * 286, (float) Math.Sin(angle) * 286), Note.IncomingTime);
         }
 
         private void UpdateCurrentState(NoteState state) {
             switch (state) {
                 case NoteState.Idle:
-                    circle.Delay(Note.IncomingTime).FadeOut(200);
+                    circle.Delay(300).FadeOut(200);
 
                     Expire(true);
 
-                    LifetimeEnd = Note.StartTime + Note.IncomingTime + 200;
+                    LifetimeEnd = Note.StartTime + 300 + 200;
                     break;
                 case NoteState.Hit:
                     // this.FadeOut(500);
