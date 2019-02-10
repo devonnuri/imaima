@@ -21,9 +21,9 @@ namespace imaima.Game.Screens.Play {
         private void load(LargeTextureStore textureStore) {
             var noteTexture = textureStore.Get("Notes/singlenote.png");
 
-            var testNote = new DrawableSingleNote[100];
+            var testNote = new DrawableNote[100];
             for (var i = 0; i < 100; i++) {
-                testNote[i] = new DrawableSingleNote(new SingleNote {
+                testNote[i] = new DrawableNote(new SingleNote {
                     StartTime = i * 150 + 1000,
                     Position = i % 8,
                     IncomingTime = 1000
