@@ -1,8 +1,8 @@
 ﻿using osu.Framework.Configuration;
 using osu.Framework.Graphics.Containers;
 
-namespace imaima.Game.Objects.Drawables {
-    internal abstract class DrawableObject<T> : CompositeDrawable where T : Note {
+namespace imaima.Game.Notes.Drawables {
+    internal abstract class DrawableNote<T> : CompositeDrawable where T : TapNote {
         protected readonly T Note;
         protected Bindable<NoteState> State = new Bindable<NoteState>();
 
@@ -14,7 +14,7 @@ namespace imaima.Game.Objects.Drawables {
         public override bool RemoveCompletedTransforms => false;
         protected override bool RequiresChildrenUpdate => true;
 
-        protected DrawableObject(T note) {
+        protected DrawableNote(T note) {
             Note = note;
 
             LifetimeStart = note.StartTime - note.IncomingTime;

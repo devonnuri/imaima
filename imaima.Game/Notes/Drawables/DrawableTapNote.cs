@@ -4,11 +4,11 @@ using osu.Framework.Graphics.Textures;
 using osuTK;
 using System;
 
-namespace imaima.Game.Objects.Drawables {
-    internal class DrawableNote : DrawableObject<Note> {
+namespace imaima.Game.Notes.Drawables {
+    internal class DrawableTapNote : DrawableNote<TapNote> {
         private Box circle;
 
-        public DrawableNote(Note note, Texture texture) : base(note) {
+        public DrawableTapNote(TapNote note, Texture texture) : base(note) {
             Origin = Anchor.Centre;
             Anchor = Anchor.Centre;
 
@@ -56,11 +56,11 @@ namespace imaima.Game.Objects.Drawables {
         private void UpdateCurrentState(NoteState state) {
             switch (state) {
                 case NoteState.Idle:
-                    circle.Delay(300).FadeOut(200);
+                    circle.Delay(100).FadeOut(100);
 
                     Expire(true);
 
-                    LifetimeEnd = Note.StartTime + 300 + 200;
+                    LifetimeEnd = Note.StartTime + 100 + 100;
                     break;
                 case NoteState.Hit:
                     // this.FadeOut(500);
