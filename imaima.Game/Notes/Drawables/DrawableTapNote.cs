@@ -11,6 +11,7 @@ namespace imaima.Game.Notes.Drawables {
         public DrawableTapNote(TapNote note, Texture texture) : base(note) {
             Origin = Anchor.Centre;
             Anchor = Anchor.Centre;
+            Depth = Note.Index;
 
             InternalChildren = new Drawable[] {
                 circle = new Box {
@@ -47,8 +48,8 @@ namespace imaima.Game.Notes.Drawables {
         }
 
         private void UpdateIncoming() {
-            double angle = (Note.Position * 45 + 22.5) * Math.PI / 180;
-            
+            double angle = (Note.Position * 45 - 67.5) * Math.PI / 180;
+
             circle.FadeIn(Note.IncomingTime / 4);
             circle.MoveTo(new Vector2((float) Math.Cos(angle) * 286, (float) Math.Sin(angle) * 286), Note.IncomingTime);
         }

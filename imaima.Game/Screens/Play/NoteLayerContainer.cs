@@ -25,9 +25,10 @@ namespace imaima.Game.Screens.Play {
             var testNote = new DrawableTapNote[200];
             for (var i = 0; i < 200; i++) {
                 testNote[i] = new DrawableTapNote(new TapNote {
-                    StartTime = i * 100 + 5000,
-                    Position = (byte) RNG.Next(0, 8),
-                    IncomingTime = 5000
+                    Index = i,
+                    StartTime = i * 500 + 1000,
+                    Position = (byte) (i % 8),
+                    IncomingTime = 500
                 }, noteTexture) {
                     Clock = adjustableClock,
                     ProcessCustomClock = false
