@@ -48,7 +48,7 @@ namespace imaima.Game.Songs {
                                 song.Difficulties.Add(new Difficulty {
                                     Level = diffParam[0],
                                     Name = diffParam[1],
-                                    Filename = diffParam[2]
+                                    Filename = Path.Combine(parentDirectory, diffParam[2])
                                 });
                             }
                             break;

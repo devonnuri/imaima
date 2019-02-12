@@ -1,41 +1,44 @@
 ﻿using imaima.Game.Notes;
 using imaima.Game.Notes.Drawables;
+using imaima.Game.Songs;
 using osu.Framework.Allocation;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Textures;
-using osu.Framework.MathUtils;
 using osu.Framework.Timing;
-using System;
 
 namespace imaima.Game.Screens.Play {
     internal class NoteLayerContainer : Container {
         private DecoupleableInterpolatingFramedClock adjustableClock;
+        private readonly Difficulty difficulty;
 
-        public NoteLayerContainer(DecoupleableInterpolatingFramedClock adjustableClock) {
+        public NoteLayerContainer(DecoupleableInterpolatingFramedClock adjustableClock, Difficulty difficulty) {
             this.adjustableClock = adjustableClock;
-
-            Clock = adjustableClock;
-            ProcessCustomClock = false;
+            this.difficulty = difficulty;
         }
 
         [BackgroundDependencyLoader]
         private void load(LargeTextureStore textureStore) {
-            var noteTexture = textureStore.Get("Notes/singlenote.png");
+            var singleTexture = textureStore.Get("Notes/singlenote.png");
+            var multiTexture = textureStore.Get("Notes/multinote.png");
 
-            var testNote = new DrawableTapNote[200];
-            for (var i = 0; i < 200; i++) {
-                testNote[i] = new DrawableTapNote(new TapNote {
-                    Index = i,
-                    StartTime = i * 500 + 1000,
-                    Position = (byte) (i % 8),
-                    IncomingTime = 500
-                }, noteTexture) {
-                    Clock = adjustableClock,
-                    ProcessCustomClock = false
-                };
+            NoteData data = NoteData.Parse(difficulty);
+            System.Console.WriteLine(data);
+
+            var drawableNotes = new DrawableTapNote[data.NoteCount];
+            int i = 0;
+            foreach (var pair in data.SyncedNotes) {
+                bool isMulti = pair.Value.Count > 1;
+                foreach (var note in pair.Value) {
+                    drawableNotes[i] = new DrawableTapNote(note, isMulti ? multiTexture : singleTexture, i) {
+                        Clock = adjustableClock,
+                        ProcessCustomClock = false
+                    };
+
+                    i++;
+                }
             }
 
-            AddRange(testNote);
+            AddRange(drawableNotes);
         }
     }
 }

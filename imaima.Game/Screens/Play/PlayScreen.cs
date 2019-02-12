@@ -51,7 +51,7 @@ namespace imaima.Game.Screens.Play {
                     RelativeSizeAxes = Axes.Both,
                     Texture = textureStore.Get("Borders/white.png")
                 },
-                new NoteLayerContainer(adjustableClock) {
+                new NoteLayerContainer(adjustableClock, difficulty) {
                     RelativeSizeAxes = Axes.Both
                 }
             });

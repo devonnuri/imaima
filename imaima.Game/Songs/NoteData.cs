@@ -2,13 +2,34 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
 
 namespace imaima.Game.Songs {
     internal class NoteData {
-        public Dictionary<double, List<TapNote>> SyncedNotes = new Dictionary<double, List<TapNote>>();
+        public Dictionary<double, List<TapNote>> SyncedNotes { get; private set; }
+        public int NoteCount { get; private set; }
+
+        public override string ToString() {
+            StringBuilder builder = new StringBuilder();
+
+            foreach (var pair in SyncedNotes) {
+                builder.Append(pair.Key + " : ");
+                builder.AppendLine(
+                    pair.Value
+                    .Select(note => "Tap@" + note.Position)
+                    .Aggregate((a, b) => a + ", " + b)
+                );
+            }
+
+            return builder.ToString();
+        }
 
         public static NoteData Parse(Difficulty difficulty) {
-            NoteData noteData = new NoteData();
+            NoteData noteData = new NoteData {
+                SyncedNotes = new Dictionary<double, List<TapNote>>()
+            };
+            noteData.NoteCount = 0;
 
             using (var reader = File.OpenText(difficulty.Filename)) {
                 string line;
@@ -21,6 +42,11 @@ namespace imaima.Game.Songs {
                     
                     double startTime = double.Parse(args[0]);
                     byte position = byte.Parse(args[2]);
+
+                    if (prevTime > 0 && prevTime != startTime) {
+                        noteData.SyncedNotes.Add(prevTime, syncedNote);
+                        syncedNote = new List<TapNote>();
+                    }
 
                     switch (args[1]) {
                         case "0":
@@ -43,19 +69,18 @@ namespace imaima.Game.Songs {
                             });
                             break;
                         default:
-                            throw new ArgumentOutOfRangeException("Incorrect Note Type", args[1], null);
-                    }
-
-                    if (prevTime != startTime) {
-                        noteData.SyncedNotes.Add(startTime, syncedNote);
-                        syncedNote = new List<TapNote>();
+                            throw new ArgumentOutOfRangeException("args[1]", args[1], "Incorrect Note Type");
                     }
 
                     prevTime = startTime;
+
+                    noteData.NoteCount++;
                 }
+
+                noteData.SyncedNotes.Add(prevTime, syncedNote);
             }
             
-            return null;
+            return noteData;
         }
     }
 }
