@@ -22,7 +22,6 @@ namespace imaima.Game.Screens.Play {
             var multiTexture = textureStore.Get("Notes/multinote.png");
 
             NoteData data = NoteData.Parse(difficulty);
-            System.Console.WriteLine(data);
 
             var drawableNotes = new DrawableTapNote[data.NoteCount];
             int i = 0;
